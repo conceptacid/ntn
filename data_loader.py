@@ -12,7 +12,7 @@ dev_data_triplets_filename = 'data/Freebase/dev.txt'
 d=100
 K=4
 lambd = 0.0001
-C = 2
+C = 10
 
 def read_ids(filename):
     res = {}
@@ -136,6 +136,7 @@ def define_graph(params, Nr, K):
         sums_r.append(sum_r)
 
     cost = tf.add_n(sums_r)
+    tf.summary.scalar('cost', cost)
     return Xs, cost
 
 
@@ -169,9 +170,15 @@ Xs, cost = define_graph(params, Nr, K)
 
 data_feed = create_data_feed(Xs, train_data, Nr)
 
+# Merge all the summaries and write them out to /tmp/mnist_logs (by default)
+merged = tf.summary.merge_all()
+
 init = tf.global_variables_initializer()
 
 with tf.Session() as sess:
+    train_writer = tf.summary.FileWriter('summary/train', sess.graph)
+    test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
-    cost_value = sess.run(cost, feed_dict=data_feed)
+    summary, cost_value = sess.run([merged, cost], feed_dict=data_feed)
     print(cost_value)
+    train_writer.add_summary(summary, 1)
