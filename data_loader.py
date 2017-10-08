@@ -46,6 +46,20 @@ def add_corrupted_exampes(train_data, C, entity_size):
             result.append(quad)
     return result
 
+def format_dev_test_data(data):
+    result = np.zeros((int(len(data)/2), 4))
+    for i in range(0,len(data),2):
+        assert(data[i][0] == data[i+1][0])
+        assert(data[i][1] == data[i+1][1])
+        assert(data[i][3] == 1)
+        assert(data[i+1][3] == -1)
+        j = (int)(i/2)
+        result[j, 0] = data[i][0]   # E1
+        result[j, 1] = data[i][1]   # R
+        result[j, 2] = data[i][2]   # E2
+        result[j, 3] = data[i+1][2] # C
+    return result
+
 
 def define_parameters(d=d, Ne=None, Nr=None, K=K):
     params = dict(
@@ -193,30 +207,51 @@ print("Number of entities = ", Ne)
 print("Number of relations = ", Nr)
 
 train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup)
+
+
+# this data looks "ID-like maria_anna_of_sardinia   ID-gender  ID-female  1"
 test_data_tuples = read_tuples(test_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
 dev_data_tuples = read_tuples(dev_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
 
 train_data = np.array(add_corrupted_exampes(train_data_tuples, C, Ne)).T
+dev_data = np.array(format_dev_test_data(dev_data_tuples)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
 params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
 Xs, cost, optimizer, accuracy, avg_g, avg_gc = define_graph(params, Nr, K, threshold)
 
-data_feed = create_data_feed(Xs, train_data, Nr)
+train_data_feed = create_data_feed(Xs, train_data, Nr)
+dev_data_feed = create_data_feed(Xs, dev_data, Nr)
 
 # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
 merged = tf.summary.merge_all()
 
 init = tf.global_variables_initializer()
 
+
+
 with tf.Session() as sess:
     train_writer = tf.summary.FileWriter('summary/train', sess.graph)
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
     
-    for i in range(20):
-        summary, cost_value, accuracy_value, avg_g_value, avg_gc_value = sess.run([merged, cost, accuracy, avg_g, avg_gc], feed_dict=data_feed)
-        print("iteration ", i, cost_value, accuracy_value, avg_g_value, avg_gc_value)
-        optimizer.minimize(sess, feed_dict=data_feed)
+    for i in range(30):
+        summary, cost_value, accuracy_value, avg_g_value, avg_gc_value = sess.run([merged, cost, accuracy, avg_g, avg_gc], feed_dict=train_data_feed)
+
+        dev_cost_value, dev_accuracy_value, dev_avg_g_value, dev_avg_gc_value = sess.run([cost, accuracy, avg_g, avg_gc], feed_dict=dev_data_feed)
+
+        if i == 0:
+            print("\n\n{0:10} {1:10} {2:10} {3:10} {4:10} {5:10} {6:10} {7:10} {8:10}".format(
+                 "num_iter",
+                 "train_cost", "train_accu", "train_g", "train_gc",    
+                  "dev_cost", "dev_accu", "dev_g", "dev_gc"))
+
+
+        print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4} {6:10.4} {7:10.4} {8:10.4}".format(
+            i, 
+            cost_value, accuracy_value, avg_g_value, avg_gc_value,
+            dev_cost_value, dev_accuracy_value, dev_avg_g_value, dev_avg_gc_value))
+
+        optimizer.minimize(sess, feed_dict=train_data_feed)
     
     train_writer.add_summary(summary, 1)
