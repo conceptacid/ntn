@@ -179,13 +179,13 @@ def define_graph(params, Nr, K, th):
 
     accuracy = (sum_true_positives + sum_true_negatives)/(sum_true_positives + sum_true_negatives + sum_false_positives + sum_false_negatives)
 
-
-    cost = tf.add_n(sums_r) #+ tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+    regularization_cost = 100.0*tf.add_n(tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES))
+    cost = tf.add_n(sums_r) + regularization_cost
     tf.summary.scalar('cost', cost)
 
     optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
 
-    return Xs, cost, optimizer, accuracy, avg_g, avg_gc
+    return Xs, cost, optimizer, accuracy, avg_g, avg_gc, regularization_cost
 
 
 def create_data_feed(Xs, quadruplets, Nr):
@@ -193,7 +193,7 @@ def create_data_feed(Xs, quadruplets, Nr):
     for r in range(Nr):
         name = "X_" + str(r)
         res[Xs[name]] = quadruplets[:, quadruplets[1, :] == r]
-        print(" data feed X_",r, " is ", res[Xs[name]].shape, res[Xs[name]].dtype )
+        #print(" data feed X_",r, " is ", res[Xs[name]].shape, res[Xs[name]].dtype )
         #print("r=",r, "\n", quadruplets[1, :] == r)
     return res
 
@@ -218,7 +218,7 @@ dev_data = np.array(format_dev_test_data(dev_data_tuples)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
 params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost, optimizer, accuracy, avg_g, avg_gc = define_graph(params, Nr, K, threshold)
+Xs, cost, optimizer, accuracy, avg_g, avg_gc, regularization_cost = define_graph(params, Nr, K, threshold)
 
 train_data_feed = create_data_feed(Xs, train_data, Nr)
 dev_data_feed = create_data_feed(Xs, dev_data, Nr)
@@ -236,21 +236,22 @@ with tf.Session() as sess:
     sess.run(init)
     
     for i in range(30):
-        summary, cost_value, accuracy_value, avg_g_value, avg_gc_value = sess.run([merged, cost, accuracy, avg_g, avg_gc], feed_dict=train_data_feed)
+        summary, cost_value, accuracy_value, avg_g_value, avg_gc_value, regularization_cost_value = sess.run([merged, cost, accuracy, avg_g, avg_gc, regularization_cost], feed_dict=train_data_feed)
 
         dev_cost_value, dev_accuracy_value, dev_avg_g_value, dev_avg_gc_value = sess.run([cost, accuracy, avg_g, avg_gc], feed_dict=dev_data_feed)
 
         if i == 0:
-            print("\n\n{0:10} {1:10} {2:10} {3:10} {4:10} {5:10} {6:10} {7:10} {8:10}".format(
-                 "num_iter",
+            print("\n\n{0:10} {1:10} {2:10} {3:10} {4:10} {5:10} {6:10} {7:10} {8:10} {9:10}".format(
+                 "  num_iter",
                  "train_cost", "train_accu", "train_g", "train_gc",    
-                  "dev_cost", "dev_accu", "dev_g", "dev_gc"))
+                  " dev_cost", "  dev_accu", "  dev_g", "  dev_gc", "regulariza"))
 
 
-        print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4} {6:10.4} {7:10.4} {8:10.4}".format(
+        print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4} {6:10.4} {7:10.4} {8:10.4} {9:10.4}".format(
             i, 
             cost_value, accuracy_value, avg_g_value, avg_gc_value,
-            dev_cost_value, dev_accuracy_value, dev_avg_g_value, dev_avg_gc_value))
+            dev_cost_value, dev_accuracy_value, dev_avg_g_value, dev_avg_gc_value,
+            regularization_cost_value))
 
         optimizer.minimize(sess, feed_dict=train_data_feed)
     
