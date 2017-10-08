@@ -13,6 +13,7 @@ d=100
 K=4
 lambd = 0.0001
 C = 2
+threshold = 4
 
 def read_ids(filename):
     res = {}
@@ -100,10 +101,20 @@ def build_g(params, E1, E2, r):
     return g
 
 
-def define_graph(params, Nr, K):
+def define_graph(params, Nr, K, th):
 
     Xs = {}
     sums_r = []
+    hits = []
+
+    true_positives = []
+    true_negatives = []
+    false_positives = []
+    false_negatives = []
+
+
+    sum_gs = []
+    sum_gsc = []
 
     for r in range(Nr):
         X = tf.placeholder(dtype=tf.int64, shape=(4,None), name="X_" + str(r))
@@ -127,20 +138,40 @@ def define_graph(params, Nr, K):
         C = tf.reshape(C, (d, -1))
 
         g = build_g(params, E1, E2, r)
+        sum_gs.append( tf.reduce_sum(g) )
+        
+        true_positives.append( tf.reduce_sum(tf.cast(g > th, tf.float32)) )
+        false_negatives.append( tf.reduce_sum(tf.cast(g <= th, tf.float32)) )
 
         gc = build_g(params, E1, C, r)
+        sum_gsc.append( tf.reduce_sum(gc) )
+
+        false_positives.append( tf.reduce_sum(tf.cast(gc > th, tf.float32)) )
+        true_negatives.append(  tf.reduce_sum(tf.cast(gc <= th, tf.float32)) )
 
         difference = tf.constant(1.) - g + gc
         max_term = tf.maximum(tf.constant(0.), difference)
         sum_r = tf.reduce_sum(max_term)
         sums_r.append(sum_r)
 
-    cost = tf.add_n(sums_r)
+    
+    sum_true_positives = tf.add_n(true_positives)
+    sum_false_positives = tf.add_n(false_positives)
+    sum_true_negatives = tf.add_n(true_negatives)
+    sum_false_negatives = tf.add_n(false_negatives)
+
+    avg_g = tf.add_n(sum_gs)/(sum_true_positives + sum_false_negatives)
+    avg_gc = tf.add_n(sum_gsc)/(sum_false_positives + sum_true_negatives)
+
+    accuracy = (sum_true_positives + sum_true_negatives)/(sum_true_positives + sum_true_negatives + sum_false_positives + sum_false_negatives)
+
+
+    cost = tf.add_n(sums_r) #+ tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
     tf.summary.scalar('cost', cost)
 
     optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
 
-    return Xs, cost, optimizer
+    return Xs, cost, optimizer, accuracy, avg_g, avg_gc
 
 
 def create_data_feed(Xs, quadruplets, Nr):
@@ -169,7 +200,7 @@ train_data = np.array(add_corrupted_exampes(train_data_tuples, C, Ne)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
 params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost, optimizer = define_graph(params, Nr, K)
+Xs, cost, optimizer, accuracy, avg_g, avg_gc = define_graph(params, Nr, K, threshold)
 
 data_feed = create_data_feed(Xs, train_data, Nr)
 
@@ -183,9 +214,9 @@ with tf.Session() as sess:
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
     
-    for i in range(5):
-        summary, cost_value = sess.run([merged, cost], feed_dict=data_feed)
-        print("iteration ", i, cost_value)
+    for i in range(20):
+        summary, cost_value, accuracy_value, avg_g_value, avg_gc_value = sess.run([merged, cost, accuracy, avg_g, avg_gc], feed_dict=data_feed)
+        print("iteration ", i, cost_value, accuracy_value, avg_g_value, avg_gc_value)
         optimizer.minimize(sess, feed_dict=data_feed)
     
     train_writer.add_summary(summary, 1)
