@@ -12,7 +12,7 @@ dev_data_triplets_filename = 'data/Freebase/dev.txt'
 d=100
 K=4
 lambd = 0.0001
-C = 10
+C = 2
 
 def read_ids(filename):
     res = {}
@@ -137,7 +137,10 @@ def define_graph(params, Nr, K):
 
     cost = tf.add_n(sums_r)
     tf.summary.scalar('cost', cost)
-    return Xs, cost
+
+    optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
+
+    return Xs, cost, optimizer
 
 
 def create_data_feed(Xs, quadruplets, Nr):
@@ -145,7 +148,7 @@ def create_data_feed(Xs, quadruplets, Nr):
     for r in range(Nr):
         name = "X_" + str(r)
         res[Xs[name]] = quadruplets[:, quadruplets[1, :] == r]
-        print("r=",r, "\n", res[Xs[name]] )
+        print(" data feed X_",r, " is ", res[Xs[name]].shape, res[Xs[name]].dtype )
         #print("r=",r, "\n", quadruplets[1, :] == r)
     return res
 
@@ -166,7 +169,7 @@ train_data = np.array(add_corrupted_exampes(train_data_tuples, C, Ne)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
 params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost = define_graph(params, Nr, K)
+Xs, cost, optimizer = define_graph(params, Nr, K)
 
 data_feed = create_data_feed(Xs, train_data, Nr)
 
@@ -179,6 +182,10 @@ with tf.Session() as sess:
     train_writer = tf.summary.FileWriter('summary/train', sess.graph)
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
-    summary, cost_value = sess.run([merged, cost], feed_dict=data_feed)
-    print(cost_value)
+    
+    for i in range(5):
+        summary, cost_value = sess.run([merged, cost], feed_dict=data_feed)
+        print("iteration ", i, cost_value)
+        optimizer.minimize(sess, feed_dict=data_feed)
+    
     train_writer.add_summary(summary, 1)
