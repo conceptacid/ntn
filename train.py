@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 
 
-
+'''
 entities_filename = 'data/Freebase/entities.txt'
 relations_filename = 'data/Freebase/relations.txt'
 train_data_triplets_filename = 'data/Freebase/train.txt'
@@ -15,7 +15,6 @@ d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
 lambd = 0.0001         # regularization parameter
 C = 2                  # number of corrupted examples
-threshold = 4          # if a score is above the threshold, then relation is true (for Freebase this equals to 4)
 NumberOfThresholdSteps = 100
 
 '''
@@ -28,12 +27,11 @@ test_data_triplets_filename = 'data/Wordnet/test.txt'
 dev_data_triplets_filename = 'data/Wordnet/dev.txt'
 
 d=100                  # the size of the entity vector
-K=8                    # the number of slices in the tensor layer  (K=4)
-lambd = 0.0001         # regularization parameter
+K=4                    # the number of slices in the tensor layer  (K=4)
+lambd = 0.5         # regularization parameter
 C = 2                  # number of corrupted examples
-threshold = 5          # if a score is above the threshold, then relation is true (for Freebase this equals to 4)
+NumberOfThresholdSteps = 100
 
-'''
 
 
 def read_ids(filename):
@@ -147,7 +145,7 @@ def build_g(params, E1, E2, r):
     return g
 
 
-def define_graph(params, Nr, K, th):
+def define_graph(params, Nr, K):
 
     Xs = {}
     sums_r = []
@@ -283,7 +281,7 @@ dev_data = np.array(format_dev_test_data(dev_data_tuples)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
 params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost, optimizer, accuracy, regularization_cost = define_graph(params, Nr, K, threshold)
+Xs, cost, optimizer, accuracy, regularization_cost = define_graph(params, Nr, K)
 
 train_data_feed = create_data_feed(Xs, train_data, Nr)
 dev_data_feed = create_data_feed(Xs, dev_data, Nr)
