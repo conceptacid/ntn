@@ -28,8 +28,8 @@ dev_data_triplets_filename = 'data/Wordnet/dev.txt'
 
 d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
-lambd = 0.5         # regularization parameter
-C = 2                  # number of corrupted examples
+lambd = 0.5            # regularization parameter
+C = 4                  # number of corrupted examples
 NumberOfThresholdSteps = 100
 
 
@@ -298,7 +298,7 @@ with tf.Session() as sess:
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
     
-    for i in range(30):
+    for i in range(100):
         summary, cost_value, accuracy_value, regularization_cost_value = sess.run([merged, cost, accuracy, regularization_cost], feed_dict=train_data_feed)
 
         dev_cost_value, dev_accuracy_value = sess.run([cost, accuracy], feed_dict=dev_data_feed)
