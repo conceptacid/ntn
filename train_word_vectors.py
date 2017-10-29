@@ -11,6 +11,8 @@ train_data_triplets_filename = 'data/Freebase/train.txt'
 test_data_triplets_filename = 'data/Freebase/test.txt'
 dev_data_triplets_filename = 'data/Freebase/dev.txt'
 
+words_filename = "freebase_words.txt"
+
 d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
 lambd = 0.0001         # regularization parameter
@@ -26,6 +28,8 @@ train_data_triplets_filename = 'data/Wordnet/train.txt'
 test_data_triplets_filename = 'data/Wordnet/test.txt'
 dev_data_triplets_filename = 'data/Wordnet/dev.txt'
 
+words_filename = "wordnet_words.txt"
+
 d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
 lambd = 0.5            # regularization parameter
@@ -33,6 +37,13 @@ C = 4                  # number of corrupted examples
 NumberOfThresholdSteps = 100
 
 
+def read_words(filename):
+    res =[]
+    with open(filename, 'r') as file:
+        reader = csv.reader(file, delimiter='\t')
+        for row in reader:
+            res.append(row[0])
+    return res
 
 def read_ids(filename):
     res = {}
@@ -80,9 +91,26 @@ def format_dev_test_data(data):
     return result
 
 
-def define_parameters(d=d, Ne=None, Nr=None, K=K):
+def create_entity_words(entity_lookup, words):
+    word_to_index = dict([(key, val) for val, key in enumerate(words)])
+    words_container = []
+    num_words_per_entity = 0
+    for entity_str in entity_lookup:
+        words = list(filter(lambda w: len(w) > 0, entity_str.split("_")))
+        words_container.append(words)
+        num_words_per_entity = max(num_words_per_entity, len(words))
+    
+    entity_words = np.zeros(shape=(num_words_per_entity, len(words_container)), dtype=np.int64)
+    for entity_index, words in enumerate(words_container):
+        for i, word in enumerate(words):
+            entity_words[ i, entity_index ] = word_to_index[word]
+
+    return entity_words, num_words_per_entity
+
+
+def define_parameters(d=d, Ns=None, Nr=None, K=K):
     params = dict(
-        E=tf.get_variable(shape=(d,Ne), name="E",  initializer=tf.contrib.layers.xavier_initializer(), regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
+        S=tf.get_variable(shape=(Ns,d), name="S",  initializer=tf.contrib.layers.xavier_initializer(), regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
     )
 
     for r in range(Nr):
@@ -146,14 +174,31 @@ def build_g(params, E1, E2, r):
     return g
 
 # Extracts training data entities from indices in X
-def build_entity_lookup(params, X, r, data_row, name_prefix):
+def build_entity_lookup(params, X, EW, r, data_row, name_prefix, num_words_per_entity):
     E_indices = tf.slice(X, begin=(data_row,0), size=(1,-1), name=name_prefix + "_index_" + str(r))
-    E = tf.gather( params["E"], E_indices, axis=1, name=name_prefix+"_" + str(r) )
-    E = tf.reshape(E,(d,-1))
+    print("shape of E_indices", E_indices.shape)  # (1, number_of_samples)
+    
+    S_indices = tf.gather( EW, E_indices, axis=1, name="S_indices_"+name_prefix+"_" + str(r) )
+    S_indices = tf.reshape(S_indices,(num_words_per_entity,-1))
+    print("shape of S_indices", S_indices.shape) # (num_words_per_entity, number_of_samples)
+
+    WordVectors = tf.gather( tf.transpose(params["S"]), S_indices, axis=1, name="WordVectors_"+name_prefix+"_" + str(r) )
+    WordVectors = tf.transpose(WordVectors, perm=(0,2,1))
+    #WordVectors = tf.reshape(WordVectors,(d,-1, num_words_per_entity))  # shape=(d, number_of_samples, num_words_per_entity)
+    print("shape of WordVectors", WordVectors.shape)
+
+    E = tf.reduce_sum(WordVectors, axis=2, keep_dims=False, name=name_prefix+"_" + str(r))           # E1, E2, C
+    print("shape of E", E.shape)
+    count = tf.cast( tf.reduce_sum(tf.cast( S_indices > 0, tf.int64 ), axis=0, keep_dims=True), tf.float32 )
+    print("shape of count", count.shape)
+    E = tf.div(E,count)
+
+    print("shape of E", E.shape)
+    
     return E          #E shape should be (d,m_r)
 
 
-def define_graph(params, Nr, K):
+def define_graph(params, Nr, K, Ns, num_words_per_entity, Ne):
 
     Xs = {}
     sums_r = []
@@ -181,6 +226,8 @@ def define_graph(params, Nr, K):
     # for now we start with one hardcoded range
 
 
+    EW = tf.placeholder(dtype=tf.int64, shape=(num_words_per_entity, Ne), name="EntityWords")
+
     for r in range(Nr):
         
         rannge_of_thresholds = params["th_" +str(r)]
@@ -190,9 +237,10 @@ def define_graph(params, Nr, K):
         # group entity indices by relation index r
         Xs["X_" + str(r)] = X
 
-        E1 = build_entity_lookup(params, X, r, 0, "E1")
-        E2 = build_entity_lookup(params, X, r, 2, "E2")
-        C  = build_entity_lookup(params, X, r, 3, "C")
+
+        E1 = build_entity_lookup(params, X, EW, r, 0, "E1", num_words_per_entity)
+        E2 = build_entity_lookup(params, X, EW, r, 2, "E2", num_words_per_entity)
+        C  = build_entity_lookup(params, X, EW, r, 3, "C", num_words_per_entity)
 
         gc = build_g(params, E1, C, r)
         bound1 = tf.reduce_mean(gc) 
@@ -245,11 +293,17 @@ def define_graph(params, Nr, K):
 
     optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
 
-    return Xs, cost, optimizer, accuracy, regularization_cost
+
+    S = params["S"]
+
+    resetNoword = tf.scatter_update(S, indices=[0], updates=tf.zeros(shape=[1,d]) )
+
+    return EW, Xs, cost, optimizer, accuracy, regularization_cost, resetNoword
 
 
-def create_data_feed(Xs, quadruplets, Nr):
+def create_data_feed(Xs, quadruplets, Nr, E, entity_words):
     res = {}
+    res[E] = entity_words
     for r in range(Nr):
         name = "X_" + str(r)
         res[Xs[name]] = quadruplets[:, quadruplets[1, :] == r]
@@ -258,13 +312,19 @@ def create_data_feed(Xs, quadruplets, Nr):
     return res
 
 
+
+words = ["NOWORD"] + read_words(words_filename)
+
 entity_lookup = read_ids(entities_filename)
 relation_lookup = read_ids(relations_filename)
 
+Ns = len(words)
 Ne = len(entity_lookup)
 Nr = len(relation_lookup)
+print("Number of words = ", Ns)
 print("Number of entities = ", Ne)
 print("Number of relations = ", Nr)
+
 
 train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup)
 
@@ -272,16 +332,19 @@ train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=enti
 # this data looks "ID-like maria_anna_of_sardinia   ID-gender  ID-female  1"
 test_data_tuples = read_tuples(test_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
 dev_data_tuples = read_tuples(dev_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
+entity_words, num_words_per_entity = create_entity_words(entity_lookup, words)
+
+print("num_words_per_entity = ", num_words_per_entity)
 
 train_data = np.array(add_corrupted_exampes(train_data_tuples, C, Ne)).T
 dev_data = np.array(format_dev_test_data(dev_data_tuples)).T
 
 #print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
-params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost, optimizer, accuracy, regularization_cost = define_graph(params, Nr, K)
+params = define_parameters(Ns=Ns, Nr=len(relation_lookup))
+E, Xs, cost, optimizer, accuracy, regularization_cost, resetNoword = define_graph(params, Nr, K, Ns, num_words_per_entity, Ne)   #params, Nr, K, Ns, num_words_per_entity, Ne
 
-train_data_feed = create_data_feed(Xs, train_data, Nr)
-dev_data_feed = create_data_feed(Xs, dev_data, Nr)
+train_data_feed = create_data_feed(Xs, train_data, Nr, E, entity_words)
+dev_data_feed = create_data_feed(Xs, dev_data, Nr, E, entity_words)
 
 # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
 merged = tf.summary.merge_all()
@@ -296,8 +359,8 @@ with tf.Session() as sess:
     sess.run(init)
     
     for i in range(100):
+        sess.run(resetNoword)
         summary, cost_value, accuracy_value, regularization_cost_value = sess.run([merged, cost, accuracy, regularization_cost], feed_dict=train_data_feed)
-
         dev_cost_value, dev_accuracy_value = sess.run([cost, accuracy], feed_dict=dev_data_feed)
 
         if i == 0:
