@@ -90,8 +90,9 @@ def define_parameters(d=d, Ne=None, Nr=None, K=K):
                           regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
         V=tf.get_variable(shape=(K,2*d), name="V_" + str(r), initializer=tf.contrib.layers.xavier_initializer(),
                           regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
-        b=tf.get_variable(shape=(K,1), name="b_" + str(r),   initializer=tf.zeros_initializer(),
-                          regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
+        b=tf.get_variable(shape=(K,1), name="b_" + str(r))
+                          #,   initializer=tf.zeros_initializer(),
+                          #regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
         params["U_" + str(r)] = U
         params["V_" + str(r)] = V
         params["b_" + str(r)] = b
@@ -144,6 +145,13 @@ def build_g(params, E1, E2, r):
     assert(g.shape[0] == 1)
     return g
 
+# Extracts training data entities from indices in X
+def build_entity_lookup(params, X, r, data_row, name_prefix):
+    E_indices = tf.slice(X, begin=(data_row,0), size=(1,-1), name=name_prefix + "_index_" + str(r))
+    E = tf.gather( params["E"], E_indices, axis=1, name=name_prefix+"_" + str(r) )
+    E = tf.reshape(E,(d,-1))
+    return E          #E shape should be (d,m_r)
+
 
 def define_graph(params, Nr, K):
 
@@ -179,23 +187,12 @@ def define_graph(params, Nr, K):
 
         X = tf.placeholder(dtype=tf.int64, shape=(4,None), name="X_" + str(r))
 
+        # group entity indices by relation index r
         Xs["X_" + str(r)] = X
 
-        E1_indices = tf.slice(X, begin=(0,0), size=(1,-1), name="E1_index_" + str(r))
-        #print("E1_indices.shape=", E1_indices.shape)
-        E1 = tf.gather( params["E"], E1_indices, axis=1, name="E1_" + str(r) )
-        E1 = tf.reshape(E1,(d,-1))     # todo: verify
-        #E1 shape should be (d,m_r)
-
-        #print("E1.shape=", E1.shape)
-
-        E2_indices = tf.slice(X, begin=(2,0), size=(1,-1), name="E2_index_" + str(r) )
-        E2 = tf.gather( params["E"], E2_indices, axis=1, name="E2_" + str(r) )
-        E2 = tf.reshape(E2, (d, -1))
-
-        C_indices = tf.slice(X, begin=(3,0), size=(1,-1), name="C_index_" + str(r) )
-        C = tf.gather( params["E"], C_indices, axis=1, name="C" + str(r)  )
-        C = tf.reshape(C, (d, -1))
+        E1 = build_entity_lookup(params, X, r, 0, "E1")
+        E2 = build_entity_lookup(params, X, r, 2, "E2")
+        C  = build_entity_lookup(params, X, r, 3, "C")
 
         gc = build_g(params, E1, C, r)
         bound1 = tf.reduce_mean(gc) 
