@@ -33,8 +33,10 @@ words_filename = "wordnet_words.txt"
 d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
 lambd = 0.5            # regularization parameter
-C = 4                  # number of corrupted examples
+C = 2                  # number of corrupted examples
 NumberOfThresholdSteps = 100
+
+use_LBFGS = True
 
 
 def read_words(filename):
@@ -91,21 +93,31 @@ def format_dev_test_data(data):
     return result
 
 
+# create a lookup dict word -> index
 def create_entity_words(entity_lookup, words):
     word_to_index = dict([(key, val) for val, key in enumerate(words)])
-    words_container = []
+    
+    # for each entity add the list of words of that entity
+    entity_word_strings = []
     num_words_per_entity = 0
     for entity_str in entity_lookup:
         words = list(filter(lambda w: len(w) > 0, entity_str.split("_")))
-        words_container.append(words)
+        #print(words[:-1])
+        words = words[:-1]    # only valid for wordnet
+        entity_word_strings.append(words)
         num_words_per_entity = max(num_words_per_entity, len(words))
     
-    entity_words = np.zeros(shape=(num_words_per_entity, len(words_container)), dtype=np.int64)
-    for entity_index, words in enumerate(words_container):
-        for i, word in enumerate(words):
-            entity_words[ i, entity_index ] = word_to_index[word]
+    # for each entity lookup the indices of the words
+    entity_word_indices = np.zeros(shape=(num_words_per_entity, len(entity_word_strings)), dtype=np.int64)
+    for entity_index, word_strings in enumerate(entity_word_strings):
+        for i, word in enumerate(word_strings):
+            entity_word_indices[ i, entity_index ] = word_to_index[word]
 
-    return entity_words, num_words_per_entity
+
+    # remove stop words
+
+
+    return entity_word_indices, num_words_per_entity
 
 
 def define_parameters(d=d, Ns=None, Nr=None, K=K):
@@ -291,7 +303,11 @@ def define_graph(params, Nr, K, Ns, num_words_per_entity, Ne):
     cost = tf.add_n(sums_r) + regularization_cost
     tf.summary.scalar('cost', cost)
 
-    optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
+    # L-BFGS optimizer
+    if use_LBFGS:
+        optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={'maxiter' : 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
+    else:
+        optimizer = tf.train.AdamOptimizer(1e-4).minimize(cost)
 
 
     S = params["S"]
@@ -358,7 +374,7 @@ with tf.Session() as sess:
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
     
-    for i in range(100):
+    for i in range(10000):
         sess.run(resetNoword)
         summary, cost_value, accuracy_value, regularization_cost_value = sess.run([merged, cost, accuracy, regularization_cost], feed_dict=train_data_feed)
         dev_cost_value, dev_accuracy_value = sess.run([cost, accuracy], feed_dict=dev_data_feed)
@@ -376,6 +392,9 @@ with tf.Session() as sess:
             dev_cost_value, dev_accuracy_value, 
             regularization_cost_value))
 
-        optimizer.minimize(sess, feed_dict=train_data_feed)
+        if use_LBFGS:
+            optimizer.minimize(sess, feed_dict=train_data_feed)
+        else:
+            sess.run(optimizer,feed_dict=train_data_feed)
     
     train_writer.add_summary(summary, 1)

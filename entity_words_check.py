@@ -14,6 +14,8 @@ EW = tf.constant([ [1, 2, 2, 4],
                    [0, 3, 3, 0],
                    [0, 1, 4, 0] ], dtype=tf.int64)
 
+
+# words: 6xNs
 S = tf.constant([ [0, 1, 2, 3, 4],
                   [0, 1, 2, 3, 4],
                   [0, 1, 2, 3, 4],
@@ -30,7 +32,13 @@ WordVectors = tf.transpose(tf.gather( S, S_indices, axis=1, name="WordVectors"),
 print("shape of WordVectors", WordVectors.shape)
 
 
-E = tf.reduce_mean(WordVectors, axis=2, keep_dims=False, name="E")
+#E = tf.reduce_mean(WordVectors, axis=2, keep_dims=False, name="E")
+
+E = tf.reduce_sum(WordVectors, axis=2, keep_dims=False, name="E")           # E1, E2, C
+print("shape of E", E.shape)
+count = tf.cast( tf.reduce_sum(tf.cast( S_indices > 0, tf.int64 ), axis=0, keep_dims=True), tf.float64 )
+print("shape of count", count.shape)
+E = tf.div(E,count)
 
 with tf.Session() as sess:
 	val = sess.run(E)		
