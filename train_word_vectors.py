@@ -3,6 +3,9 @@ import random
 import tensorflow as tf
 import numpy as np
 
+use_LBFGS = True
+doResetNoWord = False
+use_whole_entity_words = False
 
 '''
 entities_filename = 'data/Freebase/entities.txt'
@@ -28,7 +31,11 @@ train_data_triplets_filename = 'data/Wordnet/train.txt'
 test_data_triplets_filename = 'data/Wordnet/test.txt'
 dev_data_triplets_filename = 'data/Wordnet/dev.txt'
 
-words_filename = "wordnet_words.txt"
+if use_whole_entity_words:
+    words_filename = "data/Wordnet/entities.txt"
+else:    
+    words_filename = "wordnet_words.txt"
+
 
 d=100                  # the size of the entity vector
 K=4                    # the number of slices in the tensor layer  (K=4)
@@ -36,7 +43,7 @@ lambd = 0.5            # regularization parameter
 C = 2                  # number of corrupted examples
 NumberOfThresholdSteps = 100
 
-use_LBFGS = True
+
 
 
 def read_words(filename):
@@ -93,18 +100,23 @@ def format_dev_test_data(data):
     return result
 
 
+
+def create_whole_entity_words(entity_lookup, words):
+    return np.array(range(len(entity_lookup))).reshape(1, -1), 1
+
+# entity_lookup is a dict from entity [w,w,w,...] to index of that entity
 # create a lookup dict word -> index
 def create_entity_words(entity_lookup, words):
     word_to_index = dict([(key, val) for val, key in enumerate(words)])
     
     # for each entity add the list of words of that entity
-    entity_word_strings = []
+    entity_word_strings = [None] * len(entity_lookup)
     num_words_per_entity = 0
-    for entity_str in entity_lookup:
+    for entity_str, index in entity_lookup.items():
         words = list(filter(lambda w: len(w) > 0, entity_str.split("_")))
         #print(words[:-1])
         words = words[:-1]    # only valid for wordnet
-        entity_word_strings.append(words)
+        entity_word_strings[index] = words
         num_words_per_entity = max(num_words_per_entity, len(words))
     
     # for each entity lookup the indices of the words
@@ -188,26 +200,46 @@ def build_g(params, E1, E2, r):
 # Extracts training data entities from indices in X
 def build_entity_lookup(params, X, EW, r, data_row, name_prefix, num_words_per_entity):
     E_indices = tf.slice(X, begin=(data_row,0), size=(1,-1), name=name_prefix + "_index_" + str(r))
-    print("shape of E_indices", E_indices.shape)  # (1, number_of_samples)
+    print("shape of E_indices of", name_prefix, E_indices.shape)  # (1, number_of_samples)
     
     S_indices = tf.gather( EW, E_indices, axis=1, name="S_indices_"+name_prefix+"_" + str(r) )
-    S_indices = tf.reshape(S_indices,(num_words_per_entity,-1))
-    print("shape of S_indices", S_indices.shape) # (num_words_per_entity, number_of_samples)
+    print("shape of S_indices1", S_indices.shape) 
+
+    #S_indices = tf.reshape(S_indices,(num_words_per_entity,-1))
+    S_indices = tf.squeeze(S_indices, axis=1)
+    print("shape of S_indices2", S_indices.shape) # (num_words_per_entity, number_of_samples)
 
     WordVectors = tf.gather( tf.transpose(params["S"]), S_indices, axis=1, name="WordVectors_"+name_prefix+"_" + str(r) )
     WordVectors = tf.transpose(WordVectors, perm=(0,2,1))
     #WordVectors = tf.reshape(WordVectors,(d,-1, num_words_per_entity))  # shape=(d, number_of_samples, num_words_per_entity)
     print("shape of WordVectors", WordVectors.shape)
 
-    E = tf.reduce_sum(WordVectors, axis=2, keep_dims=False, name=name_prefix+"_" + str(r))           # E1, E2, C
-    print("shape of E", E.shape)
-    count = tf.cast( tf.reduce_sum(tf.cast( S_indices > 0, tf.int64 ), axis=0, keep_dims=True), tf.float32 )
-    print("shape of count", count.shape)
-    E = tf.div(E,count)
+    if use_whole_entity_words:
+        E = tf.reduce_sum(WordVectors, axis=2, keep_dims=False, name=name_prefix+"_" + str(r))           # E1, E2, C
+        print("shape of", name_prefix, E.shape)
 
-    print("shape of E", E.shape)
-    
-    return E          #E shape should be (d,m_r)
+        count = tf.constant(1.0) #, shape=(1, S_indices.shape[1])) 
+        
+        # tf.count_nonzero( S_indices, axis=0, keep_dims=False, dtype=tf.float32)
+
+        #condition =  (tf.sign( tf.cast(S_indices, tf.float32) - tf.constant(0.5) ) + tf.constant(1.0))/tf.constant(2.0)
+        #count = tf.reduce_sum(condition, axis=0, keep_dims=True)
+
+         #tf.reduce_sum(tf.cast( S_indices > 0, tf.float32 ), axis=0, keep_dims=True)
+        print("shape of count", count.shape)
+        E = tf.div(E,count)
+        print("shape of", name_prefix, E.shape)
+
+        return E
+        #return tf.squeeze(WordVectors)
+    else:    
+        E = tf.reduce_sum(WordVectors, axis=2, keep_dims=False, name=name_prefix+"_" + str(r))           # E1, E2, C
+        print("shape of", name_prefix, E.shape)
+        #count = tf.cast( tf.reduce_sum(tf.cast( S_indices > 0, tf.int64 ), axis=0, keep_dims=True), tf.float32 )
+        #print("shape of count", count.shape)
+        #E = tf.div(E,count)
+        #print("shape of", name_prefix, E.shape)
+        return E          #E shape should be (d,m_r)
 
 
 def define_graph(params, Nr, K, Ns, num_words_per_entity, Ne):
@@ -348,7 +380,11 @@ train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=enti
 # this data looks "ID-like maria_anna_of_sardinia   ID-gender  ID-female  1"
 test_data_tuples = read_tuples(test_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
 dev_data_tuples = read_tuples(dev_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup, read_groud_truth=True)
-entity_words, num_words_per_entity = create_entity_words(entity_lookup, words)
+
+if use_whole_entity_words:
+    entity_words, num_words_per_entity = create_whole_entity_words(entity_lookup, words)
+else:    
+    entity_words, num_words_per_entity = create_entity_words(entity_lookup, words)
 
 print("num_words_per_entity = ", num_words_per_entity)
 
@@ -373,9 +409,10 @@ with tf.Session() as sess:
     train_writer = tf.summary.FileWriter('summary/train', sess.graph)
     test_writer = tf.summary.FileWriter('summary/test')
     sess.run(init)
-    
+
     for i in range(10000):
-        sess.run(resetNoword)
+        if doResetNoWord:
+            sess.run(resetNoword)
         summary, cost_value, accuracy_value, regularization_cost_value = sess.run([merged, cost, accuracy, regularization_cost], feed_dict=train_data_feed)
         dev_cost_value, dev_accuracy_value = sess.run([cost, accuracy], feed_dict=dev_data_feed)
 
