@@ -23,6 +23,7 @@ relations_filename = 'data/Wordnet/relations.txt'
 train_data_triplets_filename = 'data/Wordnet/train.txt'
 test_data_triplets_filename = 'data/Wordnet/test.txt'
 dev_data_triplets_filename = 'data/Wordnet/dev.txt'
+words_filename = "wordnet_words.txt"
 
 d = 100  # the size of the entity vector
 K = 4  # the number of slices in the tensor layer  (K=4)
@@ -31,6 +32,16 @@ C = 4  # number of corrupted examples
 NumberOfThresholdSteps = 100
 
 
+def read_words(filename):
+    res = []
+    with open(filename, 'r') as file:
+        reader = csv.reader(file, delimiter='\t')
+        for row in reader:
+            res.append(row[0])
+    return res
+
+
+# returns a dict lookup from strings to indices
 def read_ids(filename):
     res = {}
     counter = 0
@@ -54,6 +65,20 @@ def read_tuples(filename, entity_lookup={}, relation_lookup={}, read_groud_truth
                 e1, r, e2 = row
                 res.append((entity_lookup[e1], relation_lookup[r], entity_lookup[e2]))
     return res
+
+
+def create_entity_words(entity_to_index_lookup, words):
+    word_to_index_lookup = dict([(key, val) for val, key in enumerate(words)])
+
+    # for each entity add the list of words of that entity
+    list_of_entity_words = [None] * len(entity_to_index_lookup)
+    for entity_str, index in entity_to_index_lookup.items():
+        words = list(filter(lambda w: len(w) > 0, entity_str.split("_")))
+        # print(words[:-1])
+        words = words[:-1]  # only valid for wordnet
+        list_of_entity_words[index] = words
+
+    return list_of_entity_words, word_to_index_lookup
 
 
 def add_corrupted_exampes(train_data, C, entity_size):
@@ -80,10 +105,15 @@ def format_dev_test_data(data):
     return result
 
 
-def define_parameters(d=d, Ne=None, Nr=None, K=K):
+def define_parameters(d, Nw, Nr, K):
+    assert d > 0
+    assert Nw > 0
+    assert Nr > 0
+    assert K > 0
+
     params = dict(
-        E=tf.get_variable(shape=(d, Ne), name="E", initializer=tf.contrib.layers.xavier_initializer(),
-                          regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
+        WV=tf.get_variable(shape=(d, Nw), name="WV", initializer=tf.contrib.layers.xavier_initializer(),
+                           regularizer=tf.contrib.layers.l2_regularizer(scale=lambd))
     )
 
     for r in range(Nr):
@@ -148,22 +178,60 @@ def build_g(params, E1, E2, r):
 
 
 # Extracts training data entities from indices in X
-def build_entity_lookup(params, X, r, data_row, name_prefix):
+def build_entity_lookup(params, X, E, r, data_row, name_prefix):
     E_indices = tf.slice(X, begin=(data_row, 0), size=(1, -1), name=name_prefix + "_index_" + str(r))
-    E = tf.gather(params["E"], E_indices, axis=1, name=name_prefix + "_" + str(r))
-    E = tf.reshape(E, (d, -1))
-    return E  # E shape should be (d,m_r)
+    E_slice = tf.gather(E, E_indices, axis=1, name=name_prefix + "_" + str(r))
+    E_slice = tf.reshape(E_slice, (d, -1))
+    return E_slice  # E_slice shape should be (d,m_r)
 
 
-def define_graph(params, Nr, K):
+def define_graph(params, Nr, K, word_to_index_lookup, list_of_entity_words):
+    assert Nr > 0
+    assert K > 0
+
+
+    #print(word_to_index_lookup)
+
     Xs = {}
     sums_r = []
     hits = []
+
+    WV = params["WV"]
 
     global_true_positives = []
     global_true_negatives = []
     global_false_positives = []
     global_false_negatives = []
+
+
+    print("preparing list of entity word indices...")
+
+    list_of_entity_word_indices = []  # list of constant tensors
+    for words_of_entity in list_of_entity_words:
+        word_indices_of_entity = []
+        for word in words_of_entity:
+            word_indices_of_entity.append(word_to_index_lookup[word])
+        list_of_entity_word_indices.append(tf.constant(np.array(word_indices_of_entity), dtype=tf.int64))
+
+    print("done with ", len(list_of_entity_word_indices), "items")
+
+    print("preparing list of entity word vectors...")
+    list_of_entity_word_vectors = []  # each entity has different number of word vectors, we put them into a list
+    for word_indices_of_entity in list_of_entity_word_indices:
+        # axis=1 because the shape of WV is (d, Nw), therefore we have to pick a column for each index
+        list_of_entity_word_vectors.append(tf.gather(WV, indices=word_indices_of_entity, axis=1))
+    print("done with ", len(list_of_entity_word_vectors), "items")
+
+    print("preparing list of entity vectors...")
+    list_of_entity_vectors = []
+    for entity_word_vectors in list_of_entity_word_vectors:
+        # entity_word_vectors is a tensor of shape (d, number_of_words_in_entity)
+        list_of_entity_vectors.append(tf.reduce_mean(entity_word_vectors, keep_dims=True, axis=1))
+    print("done with ", len(list_of_entity_vectors), "items")
+
+    print("stacking entity vectors...")
+    # create a tensor from all these entity vectors in the list
+    E = tf.stack(list_of_entity_vectors, axis=1)
 
     # Accuracy calculation:
     # we want to do a linear search over the range of thresholds
@@ -181,7 +249,11 @@ def define_graph(params, Nr, K):
     # for now we start with one hardcoded range
 
 
+    print("building the rest of the graph...")
     for r in range(Nr):
+
+        print("  - relation ", r)
+
         rannge_of_thresholds = params["th_" + str(r)]
 
         X = tf.placeholder(dtype=tf.int64, shape=(4, None), name="X_" + str(r))
@@ -189,9 +261,9 @@ def define_graph(params, Nr, K):
         # group entity indices by relation index r
         Xs["X_" + str(r)] = X
 
-        E1 = build_entity_lookup(params, X, r, 0, "E1")
-        E2 = build_entity_lookup(params, X, r, 2, "E2")
-        C = build_entity_lookup(params, X, r, 3, "C")
+        E1 = build_entity_lookup(params, X, E, r, 0, "E1")
+        E2 = build_entity_lookup(params, X, E, r, 2, "E2")
+        C = build_entity_lookup(params, X, E, r, 3, "C")
 
         gc = build_g(params, E1, C, r)
         bound1 = tf.reduce_mean(gc)
@@ -231,6 +303,8 @@ def define_graph(params, Nr, K):
         sum_r = tf.reduce_sum(tf.maximum(tf.constant(0.), tf.constant(1.) - g + gc))
         sums_r.append(sum_r)
 
+    print("building the accuracy, cost graph...")
+
     sum_true_positives = tf.add_n(global_true_positives)
     sum_false_positives = tf.add_n(global_false_positives)
     sum_true_negatives = tf.add_n(global_true_negatives)
@@ -243,8 +317,12 @@ def define_graph(params, Nr, K):
     cost = tf.add_n(sums_r) + regularization_cost
     tf.summary.scalar('cost', cost)
 
+    print("creating optimizer...")
+
     optimizer = tf.contrib.opt.ScipyOptimizerInterface(cost, options={
         'maxiter': 1})  # if 'method' arg is undefined, the default method is L-BFGS-B
+
+    print("done building graph")
 
     return Xs, cost, optimizer, accuracy, regularization_cost
 
@@ -259,47 +337,60 @@ def create_data_feed(Xs, quadruplets, Nr):
     return res
 
 
-entity_lookup = read_ids(entities_filename)
-relation_lookup = read_ids(relations_filename)
+entity_to_index_lookup = read_ids(entities_filename)
+relation_to_index_lookup = read_ids(relations_filename)
+words = read_words(words_filename)
+list_of_entity_words, word_to_index_lookup = create_entity_words(entity_to_index_lookup, words)
 
-Ne = len(entity_lookup)
-Nr = len(relation_lookup)
+Ne = len(entity_to_index_lookup)
+Nr = len(relation_to_index_lookup)
+Nw = len(words)
 print("Number of entities = ", Ne)
-print("Number of relations = ", Nr)
+print("Number of entities = ", Ne)
+print("Number of words = ", Nw)
 
-train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=entity_lookup,
-                                relation_lookup=relation_lookup)
+train_data_tuples = read_tuples(train_data_triplets_filename, entity_lookup=entity_to_index_lookup,
+                                relation_lookup=relation_to_index_lookup)
 
 # this data looks "ID-like maria_anna_of_sardinia   ID-gender  ID-female  1"
-test_data_tuples = read_tuples(test_data_triplets_filename, entity_lookup=entity_lookup,
-                               relation_lookup=relation_lookup, read_groud_truth=True)
-dev_data_tuples = read_tuples(dev_data_triplets_filename, entity_lookup=entity_lookup, relation_lookup=relation_lookup,
-                              read_groud_truth=True)
+test_data_tuples = read_tuples(test_data_triplets_filename, entity_lookup=entity_to_index_lookup,
+                               relation_lookup=relation_to_index_lookup, read_groud_truth=True)
+dev_data_tuples = read_tuples(dev_data_triplets_filename, entity_lookup=entity_to_index_lookup,
+                              relation_lookup=relation_to_index_lookup, read_groud_truth=True)
 
 train_data = np.array(add_corrupted_exampes(train_data_tuples, C, Ne)).T
 dev_data = np.array(format_dev_test_data(dev_data_tuples)).T
 
 # print(add_corrupted_exampes(train_data, 2, len(entity_lookup)))
-params = define_parameters(Ne=Ne, Nr=len(relation_lookup))
-Xs, cost, optimizer, accuracy, regularization_cost = define_graph(params, Nr, K)
+params = define_parameters(d, Nw, len(relation_to_index_lookup), K)
+Xs, cost, optimizer, accuracy, regularization_cost = define_graph(params, Nr, K, word_to_index_lookup,
+                                                                  list_of_entity_words)
+
+print("creating data feed...")
 
 train_data_feed = create_data_feed(Xs, train_data, Nr)
 dev_data_feed = create_data_feed(Xs, dev_data, Nr)
 
 # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
+print("building the summary...")
 merged = tf.summary.merge_all()
 
 init = tf.global_variables_initializer()
 
 with tf.Session() as sess:
+    print("writing the summaries...")
     train_writer = tf.summary.FileWriter('summary/train', sess.graph)
     test_writer = tf.summary.FileWriter('summary/test')
+    print("initalizing the variables...")
     sess.run(init)
-
+    print("starting the loop...")
     for i in range(100):
+
+        print("   - running the train set...")
         summary, cost_value, accuracy_value, regularization_cost_value = sess.run(
             [merged, cost, accuracy, regularization_cost], feed_dict=train_data_feed)
 
+        print("   - running the dev set...")
         dev_cost_value, dev_accuracy_value = sess.run([cost, accuracy], feed_dict=dev_data_feed)
 
         if i == 0:
@@ -314,6 +405,7 @@ with tf.Session() as sess:
             dev_cost_value, dev_accuracy_value,
             regularization_cost_value))
 
+        print("   - running optimization...")
         optimizer.minimize(sess, feed_dict=train_data_feed)
 
     train_writer.add_summary(summary, 1)
