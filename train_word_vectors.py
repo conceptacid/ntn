@@ -396,6 +396,9 @@ params = define_parameters(Ns=Ns, Nr=len(relation_lookup))
 E, Xs, cost, optimizer, accuracy, regularization_cost, resetNoword = define_graph(params, Nr, K, Ns, num_words_per_entity, Ne)   #params, Nr, K, Ns, num_words_per_entity, Ne
 
 train_data_feed = create_data_feed(Xs, train_data, Nr, E, entity_words)
+
+print("train data feed shape=", train_data.shape)
+
 dev_data_feed = create_data_feed(Xs, dev_data, Nr, E, entity_words)
 
 # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
