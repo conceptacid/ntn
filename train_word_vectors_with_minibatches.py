@@ -503,7 +503,7 @@ with tf.Session() as sess:
         i += 1
 
     dev_accuracy_value = sess.run([accuracy], feed_dict=dev_data_feed)
-    print("final_accuracy="+dev_accuracy_value[0])
+    print("final_accuracy="+str(dev_accuracy_value[0]))
 
 time_end = datetime.datetime.now()
 print("Ending session ", time_end.isoformat())
