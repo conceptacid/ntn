@@ -8,6 +8,7 @@ import datetime
 use_LBFGS = True
 doResetNoWord = False
 use_whole_entity_words = False
+generate_summaries = False
 
 '''
 entities_filename = 'data/Freebase/entities.txt'
@@ -44,7 +45,6 @@ C = 10  # number of corrupted examples
 NumberOfThresholdSteps = 100
 num_batches = 50
 
-
 max_epochs = 10
 
 time_start = datetime.datetime.now()
@@ -67,7 +67,7 @@ print(" max_epochs=", max_epochs)
 print(" max_iterations=", max_epochs*num_batches)
 
 
-exit(77)
+#exit(77)
 
 def read_words(filename):
     res = []
@@ -462,7 +462,7 @@ with tf.Session() as sess:
     train_data_index = 0
     epoch_num = 0
     i = 0
-    while(epoch_num < max_epochs):
+    while epoch_num < max_epochs:
         train_data_batch_feed = train_data_feed[train_data_index]
         if doResetNoWord:
             sess.run(resetNoword)
@@ -477,13 +477,13 @@ with tf.Session() as sess:
         if train_data_index==(num_batches-1):
             epoch_num += 1
             dev_summary, dev_cost_value, dev_accuracy_value = sess.run([merged, cost, accuracy], feed_dict=dev_data_feed)
-            test_writer.add_summary(dev_summary, i)
+            if generate_summaries:
+                test_writer.add_summary(dev_summary, i)
             print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4}".format(
                 i,
                 cost_value, accuracy_value,
                 dev_cost_value, dev_accuracy_value,
                 regularization_cost_value))
-
 
         print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4}".format(
             i,
@@ -498,18 +498,12 @@ with tf.Session() as sess:
 
         train_data_index = (train_data_index+1)%num_batches
 
-        train_writer.add_summary(summary, i)
+        if generate_summaries:
+            train_writer.add_summary(summary, i)
         i += 1
 
-'''
-    dev_summary, dev_cost_value, dev_accuracy_value = sess.run([merged, cost, accuracy], feed_dict=dev_data_feed)
-            test_writer.add_summary(dev_summary, i)
-    print("{0:10} {1:10.4} {2:10.4} {3:10.4} {4:10.4} {5:10.4}".format(
-        i,
-        cost_value, accuracy_value,
-        dev_cost_value, dev_accuracy_value,
-        regularization_cost_value))
-'''
+    dev_accuracy_value = sess.run([accuracy], feed_dict=dev_data_feed)
+    print("final_accuracy="+dev_accuracy_value[0])
 
 time_end = datetime.datetime.now()
 print("Ending session ", time_end.isoformat())

@@ -10,7 +10,7 @@ hyper_num_batches = [0, 2]
 hyper_C = [1, 20] # linear scale
 hyper_lambd = [-3, 1]  # exponential scale, use lambd = 5*10^k
 
-max_epochs = 10
+max_epochs = 1
 max_runs = 100
 
 for i in range(max_runs):
@@ -24,7 +24,7 @@ for i in range(max_runs):
 
     cmd =["python3", "train_word_vectors_with_minibatches.py"] + args
 
-    print(' starting ', i, ' of ', max_runs, '', ' '.join(args))
+    print(' starting', i+1, 'of', max_runs, 'args =', ' '.join(args))
 
     suffix = "_".join(args) + ".txt"
     with open("stdout_"+suffix, "w") as out, open("stderr_"+suffix, "w") as err:
