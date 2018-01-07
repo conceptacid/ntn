@@ -1,0 +1,59 @@
+Starting new session  2018-01-02T15:54:58.320398
+ d= 111
+ K= 6
+ num_batches= 13
+ C= 12
+ lambd= 0.005546381996151067
+ max_epochs= 2
+ max_iterations= 26
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103920)
+train data batch shape= (4, 103932)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0   1.06e+05     0.5032                        2.132e+03
+         1  1.041e+05     0.5135                        2.132e+03
+         2  1.031e+05     0.5315                        2.132e+03
+         3  1.028e+05     0.5217                        2.132e+03
+         4  1.018e+05      0.535                        2.132e+03
+         5  1.007e+05     0.5376                        2.132e+03
+         6      1e+05     0.5378                        2.132e+03
+         7  1.007e+05     0.5428                        2.132e+03
+         8  1.003e+05      0.542                        2.132e+03
+         9  1.009e+05     0.5384                        2.132e+03
+        10  9.956e+04     0.5515                        2.132e+03
+        11  1.006e+05     0.5379                        2.132e+03
+        12  1.014e+05     0.5416  4.507e+03     0.5609  2.132e+03
+        12  1.014e+05     0.5416                        2.132e+03
+        13  9.937e+04     0.5527                        2.132e+03
+        14  9.936e+04     0.5447                        2.132e+03
+        15  9.869e+04     0.5519                        2.132e+03
+        16  9.954e+04     0.5407                        2.132e+03
+        17  9.897e+04     0.5441                        2.132e+03
+        18   9.83e+04     0.5493                        2.132e+03
+        19  9.818e+04     0.5425                        2.133e+03
+        20  9.892e+04      0.551                        2.133e+03
+        21  9.833e+04     0.5559                        2.133e+03
+        22  9.914e+04     0.5484                        2.133e+03
+        23  9.762e+04     0.5609                        2.133e+03
+        24  9.926e+04     0.5491                        2.133e+03
+        25  1.002e+05      0.541   4.46e+03     0.5776  2.133e+03
+        25  1.002e+05      0.541                        2.133e+03
+final_accuracy=0.583749
+Ending session  2018-01-02T16:20:33.353699
+Elapsed time  1535.033301

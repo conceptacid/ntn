@@ -1,0 +1,47 @@
+Starting new session  2018-01-03T05:24:07.767349
+ d= 100
+ K= 2
+ num_batches= 9
+ C= 10
+ lambd= 0.007945590802643161
+ max_epochs= 2
+ max_iterations= 18
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+train data batch shape= (4, 125090)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  1.261e+05        0.5                            980.3
+         1  1.256e+05     0.5019                            980.7
+         2  1.241e+05     0.5034                            980.8
+         3  1.229e+05     0.5254                            980.8
+         4  1.222e+05     0.5293                            980.8
+         5  1.216e+05     0.5227                            980.8
+         6  1.221e+05      0.519                            980.8
+         7  1.212e+05     0.5235                            980.8
+         8  1.224e+05     0.5165  3.453e+03     0.5347      980.8
+         8  1.224e+05     0.5165                            980.8
+         9  1.208e+05     0.5244                            980.8
+        10  1.208e+05     0.5247                            980.8
+        11  1.213e+05     0.5217                            980.8
+        12  1.206e+05     0.5247                            980.8
+        13  1.202e+05     0.5264                            980.8
+        14  1.208e+05      0.523                            980.8
+        15  1.214e+05     0.5193                            980.8
+        16  1.206e+05     0.5238                            980.8
+        17  1.221e+05     0.5165  3.432e+03     0.5353      980.8
+        17  1.221e+05     0.5165                            980.8
+final_accuracy=0.535071
+Ending session  2018-01-03T05:41:00.078033
+Elapsed time  1012.310684

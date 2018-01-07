@@ -1,0 +1,182 @@
+Starting new session  2018-01-01T22:27:44.036314
+ d= 110
+ K= 2
+ num_batches= 54
+ C= 4
+ lambd= 7.591704889495331
+ max_epochs= 2
+ max_iterations= 108
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8339)
+train data batch shape= (4, 8357)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  1.034e+06     0.5027                        1.026e+06
+         1  8.441e+03        0.5                            102.2
+         2  8.339e+03        0.5                        5.607e-07
+         3  8.339e+03        0.5                        5.598e-07
+         4  8.339e+03        0.5                        5.589e-07
+         5  8.339e+03        0.5                        5.581e-07
+         6  8.339e+03        0.5                        5.572e-07
+         7  8.339e+03        0.5                        5.564e-07
+         8  8.339e+03        0.5                        5.555e-07
+         9  8.339e+03        0.5                        5.547e-07
+        10  8.339e+03        0.5                        5.538e-07
+        11  8.339e+03        0.5                         5.53e-07
+        12  8.339e+03        0.5                        5.522e-07
+        13  8.339e+03        0.5                        5.513e-07
+        14  8.339e+03        0.5                        5.505e-07
+        15  8.339e+03        0.5                        5.496e-07
+        16  8.339e+03        0.5                        5.488e-07
+        17  8.339e+03        0.5                         5.48e-07
+        18  8.339e+03        0.5                        5.471e-07
+        19  8.339e+03        0.5                        5.463e-07
+        20  8.339e+03        0.5                        5.455e-07
+        21  8.339e+03        0.5                        5.446e-07
+        22  8.339e+03        0.5                        5.437e-07
+        23  8.339e+03        0.5                        5.428e-07
+        24  8.339e+03        0.5                         5.42e-07
+        25  8.339e+03        0.5                        5.412e-07
+        26  8.339e+03        0.5                        5.403e-07
+        27  8.339e+03        0.5                        5.395e-07
+        28  8.339e+03        0.5                        5.386e-07
+        29  8.339e+03        0.5                        5.376e-07
+        30  8.339e+03        0.5                        5.367e-07
+        31  8.339e+03        0.5                        5.358e-07
+        32  8.339e+03        0.5                         5.35e-07
+        33  8.339e+03        0.5                        5.342e-07
+        34  8.339e+03        0.5                        5.333e-07
+        35  8.339e+03        0.5                        5.324e-07
+        36  8.339e+03        0.5                        5.316e-07
+        37  8.339e+03        0.5                        5.307e-07
+        38  8.339e+03        0.5                        5.298e-07
+        39  8.339e+03        0.5                        5.289e-07
+        40  8.339e+03        0.5                         5.28e-07
+        41  8.339e+03        0.5                        5.271e-07
+        42  8.339e+03        0.5                        5.262e-07
+        43  8.339e+03        0.5                        5.253e-07
+        44  8.339e+03        0.5                        5.244e-07
+        45  8.339e+03        0.5                        5.235e-07
+        46  8.339e+03        0.5                        5.226e-07
+        47  8.339e+03        0.5                        5.218e-07
+        48  8.339e+03        0.5                        5.209e-07
+        49  8.339e+03        0.5                          5.2e-07
+        50  8.339e+03        0.5                        5.191e-07
+        51  8.339e+03        0.5                        5.182e-07
+        52  8.339e+03        0.5                        5.173e-07
+        53  8.357e+03        0.5  2.609e+03        0.5  5.164e-07
+        53  8.357e+03        0.5                        5.164e-07
+        54  8.339e+03        0.5                        5.155e-07
+        55  8.339e+03        0.5                        5.146e-07
+        56  8.339e+03        0.5                        5.137e-07
+        57  8.339e+03        0.5                        5.129e-07
+        58  8.339e+03        0.5                         5.12e-07
+        59  8.339e+03        0.5                        5.111e-07
+        60  8.339e+03        0.5                        5.102e-07
+        61  8.339e+03        0.5                        5.094e-07
+        62  8.339e+03        0.5                        5.085e-07
+        63  8.339e+03        0.5                        5.076e-07
+        64  8.339e+03        0.5                        5.067e-07
+        65  8.339e+03        0.5                        5.058e-07
+        66  8.339e+03        0.5                        5.049e-07
+        67  8.339e+03        0.5                         5.04e-07
+        68  8.339e+03        0.5                        5.031e-07
+        69  8.339e+03        0.5                        5.022e-07
+        70  8.339e+03        0.5                        5.013e-07
+        71  8.339e+03        0.5                        5.004e-07
+        72  8.339e+03        0.5                        4.995e-07
+        73  8.339e+03        0.5                        4.986e-07
+        74  8.339e+03        0.5                        4.977e-07
+        75  8.339e+03        0.5                        4.968e-07
+        76  8.339e+03        0.5                        4.959e-07
+        77  8.339e+03        0.5                         4.95e-07
+        78  8.339e+03        0.5                        4.941e-07
+        79  8.339e+03        0.5                        4.932e-07
+        80  8.339e+03        0.5                        4.923e-07
+        81  8.339e+03        0.5                        4.914e-07
+        82  8.339e+03        0.5                        4.906e-07
+        83  8.339e+03        0.5                        4.897e-07
+        84  8.339e+03        0.5                        4.888e-07
+        85  8.339e+03        0.5                        4.879e-07
+        86  8.339e+03        0.5                         4.87e-07
+        87  8.339e+03        0.5                        4.861e-07
+        88  8.339e+03        0.5                        4.852e-07
+        89  8.339e+03        0.5                        4.843e-07
+        90  8.339e+03        0.5                        4.834e-07
+        91  8.339e+03        0.5                        4.826e-07
+        92  8.339e+03        0.5                        4.817e-07
+        93  8.339e+03        0.5                        4.808e-07
+        94  8.339e+03        0.5                        4.799e-07
+        95  8.339e+03        0.5                         4.79e-07
+        96  8.339e+03        0.5                        4.782e-07
+        97  8.339e+03        0.5                        4.773e-07
+        98  8.339e+03        0.5                        4.764e-07
+        99  8.339e+03        0.5                        4.755e-07
+       100  8.339e+03        0.5                        4.747e-07
+       101  8.339e+03        0.5                        4.738e-07
+       102  8.339e+03        0.5                         4.73e-07
+       103  8.339e+03        0.5                        4.721e-07
+       104  8.339e+03        0.5                        4.712e-07
+       105  8.339e+03        0.5                        4.703e-07
+       106  8.339e+03        0.5                        4.695e-07
+       107  8.357e+03        0.5  2.609e+03        0.5  4.686e-07
+       107  8.357e+03        0.5                        4.686e-07
+final_accuracy=0.5
+Ending session  2018-01-01T22:56:49.177479
+Elapsed time  1745.141165

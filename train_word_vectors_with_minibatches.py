@@ -56,7 +56,7 @@ if len(sys.argv) > 1:
     num_batches = int(sys.argv[3])
     C = int(sys.argv[4])
     lambd = float(sys.argv[5])
-    max_epochs = float(sys.argv[6])
+    max_epochs = int(sys.argv[6])
 
 print(" d=",d)
 print(" K=",K)

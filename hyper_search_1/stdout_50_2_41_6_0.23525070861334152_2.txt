@@ -1,0 +1,143 @@
+Starting new session  2018-01-01T20:48:58.247016
+ d= 50
+ K= 2
+ num_batches= 41
+ C= 6
+ lambd= 0.23525070861334152
+ max_epochs= 2
+ max_iterations= 82
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16475)
+train data batch shape= (4, 16486)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  3.129e+04     0.5047                        1.482e+04
+         1  2.741e+04     0.5031                        1.078e+04
+         2  1.657e+04        0.5                            90.28
+         3  1.646e+04     0.5126                            41.26
+         4  1.597e+04     0.5547                            151.4
+         5  1.613e+04     0.5065                            165.0
+         6   1.56e+04     0.5561                            162.5
+         7  1.566e+04     0.5447                            162.3
+         8  1.536e+04     0.5566                            163.3
+         9  1.556e+04     0.5451                            164.1
+        10  1.542e+04     0.5549                            165.9
+        11  1.546e+04     0.5494                            166.3
+        12  1.554e+04     0.5541                            167.1
+        13  1.544e+04     0.5522                            170.2
+        14  1.528e+04     0.5643                            170.7
+        15  1.528e+04     0.5552                            171.8
+        16  1.531e+04     0.5538                            172.1
+        17  1.524e+04     0.5547                            173.1
+        18  1.505e+04     0.5552                            173.8
+        19  1.498e+04     0.5589                            176.6
+        20   1.53e+04     0.5581                            176.8
+        21  1.501e+04     0.5582                            179.4
+        22  1.506e+04     0.5505                            180.0
+        23  1.516e+04     0.5536                            181.7
+        24  1.485e+04     0.5711                            182.6
+        25  1.474e+04     0.5682                            182.7
+        26  1.489e+04     0.5618                            182.9
+        27  1.506e+04     0.5546                            183.3
+        28  1.472e+04     0.5569                            183.7
+        29  1.536e+04     0.5649                            185.6
+        30  1.519e+04     0.5603                            185.7
+        31  1.524e+04     0.5581                            185.9
+        32  1.508e+04      0.552                            186.1
+        33  1.494e+04     0.5564                            186.4
+        34  1.482e+04     0.5707                            186.4
+        35  1.494e+04     0.5592                            186.7
+        36  1.514e+04     0.5572                            187.1
+        37  1.468e+04     0.5522                            187.3
+        38  1.517e+04     0.5492                            188.1
+        39   1.47e+04     0.5525                            188.6
+        40  1.499e+04     0.5634  2.425e+03     0.5621      191.1
+        40  1.499e+04     0.5634                            191.1
+        41  1.445e+04     0.5762                            191.2
+        42  1.472e+04      0.562                            191.4
+        43  1.488e+04     0.5563                            192.1
+        44  1.459e+04     0.5727                            192.3
+        45  1.437e+04     0.5649                            192.6
+        46   1.48e+04     0.5614                            195.2
+        47  1.461e+04     0.5758                            195.4
+        48  1.493e+04     0.5603                            195.5
+        49  1.451e+04     0.5702                            195.6
+        50  1.501e+04     0.5585                            195.7
+        51  1.468e+04     0.5779                            195.7
+        52  1.489e+04     0.5516                            196.0
+        53  1.438e+04     0.5547                            196.0
+        54  1.409e+04     0.5613                            196.1
+        55  1.483e+04     0.5583                            196.2
+        56   1.48e+04     0.5649                            196.4
+        57  1.473e+04     0.5704                            196.5
+        58  1.459e+04     0.5725                            196.7
+        59  1.343e+04     0.5714                            196.8
+        60   1.44e+04     0.5641                            196.9
+        61  1.466e+04     0.5662                            197.0
+        62  1.462e+04     0.5624                            197.1
+        63   1.47e+04     0.5707                            197.5
+        64  1.499e+04     0.5477                            197.8
+        65  1.468e+04     0.5794                            198.1
+        66  1.458e+04     0.5801                            198.1
+        67  1.466e+04     0.5627                            198.2
+        68  1.457e+04     0.5602                            198.6
+        69   1.39e+04     0.5694                            198.7
+        70  1.506e+04     0.5511                            199.2
+        71  1.498e+04     0.5524                            199.5
+        72  1.506e+04     0.5474                            199.9
+        73  1.488e+04     0.5555                            200.0
+        74  1.473e+04     0.5702                            200.4
+        75  1.455e+04     0.5699                            200.6
+        76  1.462e+04     0.5612                            201.0
+        77  1.495e+04     0.5463                            201.2
+        78  1.423e+04      0.544                            201.9
+        79  1.497e+04     0.5524                            202.1
+        80  1.409e+04     0.5386                            202.2
+        81  1.469e+04     0.5695  2.393e+03     0.5717      202.8
+        81  1.469e+04     0.5695                            202.8
+final_accuracy=0.571867
+Ending session  2018-01-01T20:56:23.541110
+Elapsed time  445.294094

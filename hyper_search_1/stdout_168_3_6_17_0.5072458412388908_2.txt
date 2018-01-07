@@ -1,0 +1,38 @@
+Starting new session  2018-01-02T16:41:16.550039
+ d= 168
+ K= 3
+ num_batches= 6
+ C= 17
+ lambd= 0.5072458412388908
+ max_epochs= 2
+ max_iterations= 12
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 318979)
+train data batch shape= (4, 318979)
+train data batch shape= (4, 318979)
+train data batch shape= (4, 318979)
+train data batch shape= (4, 318979)
+train data batch shape= (4, 318982)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  4.704e+05     0.5014                        1.512e+05
+         1  4.588e+05      0.524                        1.504e+05
+         2  4.571e+05     0.5241                        1.504e+05
+         3  4.544e+05     0.5173                        1.504e+05
+         4  4.548e+05     0.5243                        1.504e+05
+         5  4.552e+05     0.5235  1.529e+05      0.524  1.504e+05
+         5  4.552e+05     0.5235                        1.504e+05
+         6  4.517e+05     0.5286                        1.504e+05
+         7  4.511e+05     0.5306                        1.504e+05
+         8  4.507e+05     0.5271                        1.504e+05
+         9  4.501e+05     0.5311                        1.504e+05
+        10  4.511e+05     0.5296                        1.504e+05
+        11  4.525e+05     0.5271  1.528e+05     0.5268  1.504e+05
+        11  4.525e+05     0.5271                        1.504e+05
+final_accuracy=0.525872
+Ending session  2018-01-02T17:26:13.911049
+Elapsed time  2697.36101

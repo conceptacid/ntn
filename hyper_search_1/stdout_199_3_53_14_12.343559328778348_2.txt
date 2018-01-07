@@ -1,0 +1,179 @@
+Starting new session  2018-01-03T09:27:34.019360
+ d= 199
+ K= 3
+ num_batches= 53
+ C= 14
+ lambd= 12.343559328778348
+ max_epochs= 2
+ max_iterations= 106
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29738)
+train data batch shape= (4, 29758)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  4.377e+06     0.5075                        4.347e+06
+         1   2.73e+05     0.5054                        2.434e+05
+         2  3.163e+04        0.5                        1.887e+03
+         3  2.974e+04        0.5                        7.054e-06
+         4  2.974e+04        0.5                        7.052e-06
+         5  2.974e+04        0.5                        7.051e-06
+         6  2.974e+04        0.5                        7.049e-06
+         7  2.974e+04        0.5                        7.047e-06
+         8  2.974e+04        0.5                        7.045e-06
+         9  2.974e+04        0.5                        7.044e-06
+        10  2.974e+04        0.5                        7.042e-06
+        11  2.974e+04        0.5                         7.04e-06
+        12  2.974e+04        0.5                        7.038e-06
+        13  2.974e+04        0.5                        7.037e-06
+        14  2.974e+04        0.5                        7.035e-06
+        15  2.974e+04        0.5                        7.033e-06
+        16  2.974e+04        0.5                        7.031e-06
+        17  2.974e+04        0.5                         7.03e-06
+        18  2.974e+04        0.5                        7.028e-06
+        19  2.974e+04        0.5                        7.026e-06
+        20  2.974e+04        0.5                        7.024e-06
+        21  2.974e+04        0.5                        7.023e-06
+        22  2.974e+04        0.5                        7.021e-06
+        23  2.974e+04        0.5                        7.019e-06
+        24  2.974e+04        0.5                        7.017e-06
+        25  2.974e+04        0.5                        7.016e-06
+        26  2.974e+04        0.5                        7.014e-06
+        27  2.974e+04        0.5                        7.012e-06
+        28  2.974e+04        0.5                         7.01e-06
+        29  2.974e+04        0.5                        7.009e-06
+        30  2.974e+04        0.5                        7.007e-06
+        31  2.974e+04        0.5                        7.005e-06
+        32  2.974e+04        0.5                        7.004e-06
+        33  2.974e+04        0.5                        7.002e-06
+        34  2.974e+04        0.5                            7e-06
+        35  2.974e+04        0.5                        6.998e-06
+        36  2.974e+04        0.5                        6.997e-06
+        37  2.974e+04        0.5                        6.995e-06
+        38  2.974e+04        0.5                        6.993e-06
+        39  2.974e+04        0.5                        6.991e-06
+        40  2.974e+04        0.5                         6.99e-06
+        41  2.974e+04        0.5                        6.988e-06
+        42  2.974e+04        0.5                        6.986e-06
+        43  2.974e+04        0.5                        6.984e-06
+        44  2.974e+04        0.5                        6.983e-06
+        45  2.974e+04        0.5                        6.981e-06
+        46  2.974e+04        0.5                        6.979e-06
+        47  2.974e+04        0.5                        6.977e-06
+        48  2.974e+04        0.5                        6.976e-06
+        49  2.974e+04        0.5                        6.974e-06
+        50  2.974e+04        0.5                        6.972e-06
+        51  2.974e+04        0.5                         6.97e-06
+        52  2.976e+04        0.5  2.609e+03        0.5  6.968e-06
+        52  2.976e+04        0.5                        6.968e-06
+        53  2.974e+04        0.5                        6.967e-06
+        54  2.974e+04        0.5                        6.965e-06
+        55  2.974e+04        0.5                        6.963e-06
+        56  2.974e+04        0.5                        6.961e-06
+        57  2.974e+04        0.5                         6.96e-06
+        58  2.974e+04        0.5                        6.958e-06
+        59  2.974e+04        0.5                        6.956e-06
+        60  2.974e+04        0.5                        6.954e-06
+        61  2.974e+04        0.5                        6.953e-06
+        62  2.974e+04        0.5                        6.951e-06
+        63  2.974e+04        0.5                        6.949e-06
+        64  2.974e+04        0.5                        6.947e-06
+        65  2.974e+04        0.5                        6.946e-06
+        66  2.974e+04        0.5                        6.944e-06
+        67  2.974e+04        0.5                        6.942e-06
+        68  2.974e+04        0.5                         6.94e-06
+        69  2.974e+04        0.5                        6.939e-06
+        70  2.974e+04        0.5                        6.937e-06
+        71  2.974e+04        0.5                        6.935e-06
+        72  2.974e+04        0.5                        6.933e-06
+        73  2.974e+04        0.5                        6.931e-06
+        74  2.974e+04        0.5                         6.93e-06
+        75  2.974e+04        0.5                        6.928e-06
+        76  2.974e+04        0.5                        6.926e-06
+        77  2.974e+04        0.5                        6.925e-06
+        78  2.974e+04        0.5                        6.923e-06
+        79  2.974e+04        0.5                        6.921e-06
+        80  2.974e+04        0.5                        6.919e-06
+        81  2.974e+04        0.5                        6.918e-06
+        82  2.974e+04        0.5                        6.916e-06
+        83  2.974e+04        0.5                        6.914e-06
+        84  2.974e+04        0.5                        6.912e-06
+        85  2.974e+04        0.5                        6.911e-06
+        86  2.974e+04        0.5                        6.909e-06
+        87  2.974e+04        0.5                        6.907e-06
+        88  2.974e+04        0.5                        6.906e-06
+        89  2.974e+04        0.5                        6.904e-06
+        90  2.974e+04        0.5                        6.902e-06
+        91  2.974e+04        0.5                          6.9e-06
+        92  2.974e+04        0.5                        6.898e-06
+        93  2.974e+04        0.5                        6.897e-06
+        94  2.974e+04        0.5                        6.895e-06
+        95  2.974e+04        0.5                        6.893e-06
+        96  2.974e+04        0.5                        6.891e-06
+        97  2.974e+04        0.5                         6.89e-06
+        98  2.974e+04        0.5                        6.888e-06
+        99  2.974e+04        0.5                        6.886e-06
+       100  2.974e+04        0.5                        6.884e-06
+       101  2.974e+04        0.5                        6.883e-06
+       102  2.974e+04        0.5                        6.881e-06
+       103  2.974e+04        0.5                        6.879e-06
+       104  2.974e+04        0.5                        6.877e-06
+       105  2.976e+04        0.5  2.609e+03        0.5  6.876e-06
+       105  2.976e+04        0.5                        6.876e-06
+final_accuracy=0.5
+Ending session  2018-01-03T11:21:48.812539
+Elapsed time  6854.793179

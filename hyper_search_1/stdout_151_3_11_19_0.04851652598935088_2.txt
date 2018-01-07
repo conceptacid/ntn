@@ -1,0 +1,53 @@
+Starting new session  2018-01-03T08:41:02.372808
+ d= 151
+ K= 3
+ num_batches= 11
+ C= 19
+ lambd= 0.04851652598935088
+ max_epochs= 2
+ max_iterations= 22
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194458)
+train data batch shape= (4, 194459)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  2.075e+05     0.5005                        1.301e+04
+         1  2.042e+05     0.5194                          1.3e+04
+         2  2.017e+05     0.5222                          1.3e+04
+         3  2.009e+05     0.5234                          1.3e+04
+         4  1.977e+05     0.5274                          1.3e+04
+         5  1.975e+05     0.5289                          1.3e+04
+         6  1.969e+05     0.5301                          1.3e+04
+         7  1.962e+05     0.5317                          1.3e+04
+         8  1.936e+05     0.5356                          1.3e+04
+         9  1.944e+05     0.5351                          1.3e+04
+        10  1.955e+05     0.5377  1.537e+04     0.5491    1.3e+04
+        10  1.955e+05     0.5377                          1.3e+04
+        11  1.924e+05     0.5404                          1.3e+04
+        12  1.926e+05     0.5381                          1.3e+04
+        13  1.916e+05     0.5409                          1.3e+04
+        14  1.913e+05     0.5341                          1.3e+04
+        15  1.885e+05     0.5433                          1.3e+04
+        16  1.893e+05      0.542                          1.3e+04
+        17  1.904e+05      0.541                          1.3e+04
+        18  1.893e+05     0.5466                          1.3e+04
+        19  1.878e+05     0.5492                          1.3e+04
+        20  1.894e+05     0.5449                          1.3e+04
+        21  1.914e+05     0.5454  1.529e+04     0.5596    1.3e+04
+        21  1.914e+05     0.5454                          1.3e+04
+final_accuracy=0.559793
+Ending session  2018-01-03T09:27:32.826992
+Elapsed time  2790.454184

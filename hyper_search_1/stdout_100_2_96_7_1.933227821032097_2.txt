@@ -1,0 +1,308 @@
+Starting new session  2018-01-01T11:30:03.696112
+ d= 100
+ K= 2
+ num_batches= 96
+ C= 7
+ lambd= 1.933227821032097
+ max_epochs= 2
+ max_iterations= 192
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8209)
+train data batch shape= (4, 8212)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  2.455e+05     0.5037                        2.373e+05
+         1  1.438e+04     0.5001                        6.167e+03
+         2  8.209e+03        0.5                         0.001548
+         3  8.209e+03        0.5                        3.872e-09
+         4  8.209e+03        0.5                        3.082e-09
+         5  8.209e+03        0.5                        2.399e-09
+         6  8.209e+03        0.5                        1.868e-09
+         7  8.209e+03        0.5                        1.457e-09
+         8  8.209e+03        0.5                        8.332e-10
+         9  8.209e+03        0.5                        3.792e-10
+        10  8.209e+03        0.5                        1.291e-11
+        11  8.209e+03        0.5                        1.215e-11
+        12  8.209e+03        0.5                        1.215e-11
+        13  8.209e+03        0.5                        1.215e-11
+        14  8.209e+03        0.5                        1.215e-11
+        15  8.209e+03        0.5                        1.215e-11
+        16  8.209e+03        0.5                        1.215e-11
+        17  8.209e+03        0.5                        1.215e-11
+        18  8.209e+03        0.5                        1.215e-11
+        19  8.209e+03        0.5                        1.215e-11
+        20  8.209e+03        0.5                        1.215e-11
+        21  8.209e+03        0.5                        1.215e-11
+        22  8.209e+03        0.5                        1.215e-11
+        23  8.209e+03        0.5                        1.215e-11
+        24  8.209e+03        0.5                        1.215e-11
+        25  8.209e+03        0.5                        1.215e-11
+        26  8.209e+03        0.5                        1.215e-11
+        27  8.209e+03        0.5                        1.215e-11
+        28  8.209e+03        0.5                        1.215e-11
+        29  8.209e+03        0.5                        1.215e-11
+        30  8.209e+03        0.5                        1.215e-11
+        31  8.209e+03        0.5                        1.215e-11
+        32  8.209e+03        0.5                        1.215e-11
+        33  8.209e+03        0.5                        1.215e-11
+        34  8.209e+03        0.5                        1.215e-11
+        35  8.209e+03        0.5                        1.215e-11
+        36  8.209e+03        0.5                        1.215e-11
+        37  8.209e+03        0.5                        1.215e-11
+        38  8.209e+03        0.5                        1.215e-11
+        39  8.209e+03        0.5                        1.215e-11
+        40  8.209e+03        0.5                        1.215e-11
+        41  8.209e+03        0.5                        1.215e-11
+        42  8.209e+03        0.5                        1.215e-11
+        43  8.209e+03        0.5                        1.215e-11
+        44  8.209e+03        0.5                        1.215e-11
+        45  8.209e+03        0.5                        1.215e-11
+        46  8.209e+03        0.5                        1.215e-11
+        47  8.209e+03        0.5                        1.215e-11
+        48  8.209e+03        0.5                        1.215e-11
+        49  8.209e+03        0.5                        1.215e-11
+        50  8.209e+03        0.5                        1.215e-11
+        51  8.209e+03        0.5                        1.215e-11
+        52  8.209e+03        0.5                        1.215e-11
+        53  8.209e+03        0.5                        1.215e-11
+        54  8.209e+03        0.5                        1.215e-11
+        55  8.209e+03        0.5                        1.215e-11
+        56  8.209e+03        0.5                        1.215e-11
+        57  8.209e+03        0.5                        1.215e-11
+        58  8.209e+03        0.5                        1.215e-11
+        59  8.209e+03        0.5                        9.901e-12
+        60  8.209e+03        0.5                        9.901e-12
+        61  8.209e+03        0.5                        9.901e-12
+        62  8.209e+03        0.5                        9.901e-12
+        63  8.209e+03        0.5                        9.901e-12
+        64  8.209e+03        0.5                        9.901e-12
+        65  8.209e+03        0.5                        9.901e-12
+        66  8.209e+03        0.5                        9.901e-12
+        67  8.209e+03        0.5                        9.901e-12
+        68  8.209e+03        0.5                        9.901e-12
+        69  8.209e+03        0.5                        9.901e-12
+        70  8.209e+03        0.5                        9.901e-12
+        71  8.209e+03        0.5                        9.901e-12
+        72  8.209e+03        0.5                        9.901e-12
+        73  8.209e+03        0.5                        9.901e-12
+        74  8.209e+03        0.5                        9.901e-12
+        75  8.209e+03        0.5                        9.901e-12
+        76  8.209e+03        0.5                        9.901e-12
+        77  8.209e+03        0.5                        9.901e-12
+        78  8.209e+03        0.5                        9.901e-12
+        79  8.209e+03        0.5                        9.901e-12
+        80  8.209e+03        0.5                        9.901e-12
+        81  8.209e+03        0.5                        9.901e-12
+        82  8.209e+03        0.5                        9.901e-12
+        83  8.209e+03        0.5                        9.901e-12
+        84  8.209e+03        0.5                        9.901e-12
+        85  8.209e+03        0.5                        9.901e-12
+        86  8.209e+03        0.5                        9.901e-12
+        87  8.209e+03        0.5                        9.901e-12
+        88  8.209e+03        0.5                        9.901e-12
+        89  8.209e+03        0.5                        9.901e-12
+        90  8.209e+03        0.5                        9.901e-12
+        91  8.209e+03        0.5                        9.901e-12
+        92  8.209e+03        0.5                        9.901e-12
+        93  8.209e+03        0.5                        9.901e-12
+        94  8.209e+03        0.5                        9.901e-12
+        95  8.212e+03        0.5  2.609e+03        0.5  9.901e-12
+        95  8.212e+03        0.5                        9.901e-12
+        96  8.209e+03        0.5                        9.901e-12
+        97  8.209e+03        0.5                        9.901e-12
+        98  8.209e+03        0.5                        9.901e-12
+        99  8.209e+03        0.5                        9.901e-12
+       100  8.209e+03        0.5                        9.901e-12
+       101  8.209e+03        0.5                        9.901e-12
+       102  8.209e+03        0.5                        9.901e-12
+       103  8.209e+03        0.5                        9.901e-12
+       104  8.209e+03        0.5                        9.901e-12
+       105  8.209e+03        0.5                        9.901e-12
+       106  8.209e+03        0.5                        9.901e-12
+       107  8.209e+03        0.5                        9.901e-12
+       108  8.209e+03        0.5                        9.901e-12
+       109  8.209e+03        0.5                        9.901e-12
+       110  8.209e+03        0.5                        9.901e-12
+       111  8.209e+03        0.5                        9.901e-12
+       112  8.209e+03        0.5                        9.901e-12
+       113  8.209e+03        0.5                        9.901e-12
+       114  8.209e+03        0.5                        9.901e-12
+       115  8.209e+03        0.5                        9.901e-12
+       116  8.209e+03        0.5                        9.901e-12
+       117  8.209e+03        0.5                        9.901e-12
+       118  8.209e+03        0.5                        9.901e-12
+       119  8.209e+03        0.5                        9.901e-12
+       120  8.209e+03        0.5                        9.901e-12
+       121  8.209e+03        0.5                        9.901e-12
+       122  8.209e+03        0.5                        9.901e-12
+       123  8.209e+03        0.5                        9.901e-12
+       124  8.209e+03        0.5                        9.901e-12
+       125  8.209e+03        0.5                        9.901e-12
+       126  8.209e+03        0.5                        9.901e-12
+       127  8.209e+03        0.5                        9.901e-12
+       128  8.209e+03        0.5                        9.901e-12
+       129  8.209e+03        0.5                        9.901e-12
+       130  8.209e+03        0.5                        9.901e-12
+       131  8.209e+03        0.5                        9.901e-12
+       132  8.209e+03        0.5                        9.901e-12
+       133  8.209e+03        0.5                        9.901e-12
+       134  8.209e+03        0.5                        9.901e-12
+       135  8.209e+03        0.5                        9.901e-12
+       136  8.209e+03        0.5                        9.901e-12
+       137  8.209e+03        0.5                        9.901e-12
+       138  8.209e+03        0.5                        9.901e-12
+       139  8.209e+03        0.5                        9.901e-12
+       140  8.209e+03        0.5                        9.901e-12
+       141  8.209e+03        0.5                        9.901e-12
+       142  8.209e+03        0.5                        9.901e-12
+       143  8.209e+03        0.5                        9.901e-12
+       144  8.209e+03        0.5                        9.901e-12
+       145  8.209e+03        0.5                        9.901e-12
+       146  8.209e+03        0.5                        9.901e-12
+       147  8.209e+03        0.5                        9.901e-12
+       148  8.209e+03        0.5                        9.901e-12
+       149  8.209e+03        0.5                        9.901e-12
+       150  8.209e+03        0.5                        9.901e-12
+       151  8.209e+03        0.5                        9.901e-12
+       152  8.209e+03        0.5                        9.901e-12
+       153  8.209e+03        0.5                        9.901e-12
+       154  8.209e+03        0.5                        9.901e-12
+       155  8.209e+03        0.5                        9.901e-12
+       156  8.209e+03        0.5                        9.901e-12
+       157  8.209e+03        0.5                        9.901e-12
+       158  8.209e+03        0.5                        9.901e-12
+       159  8.209e+03        0.5                        9.901e-12
+       160  8.209e+03        0.5                        9.901e-12
+       161  8.209e+03        0.5                        9.901e-12
+       162  8.209e+03        0.5                        9.901e-12
+       163  8.209e+03        0.5                        9.901e-12
+       164  8.209e+03        0.5                        9.901e-12
+       165  8.209e+03        0.5                        9.901e-12
+       166  8.209e+03        0.5                        9.901e-12
+       167  8.209e+03        0.5                        9.901e-12
+       168  8.209e+03        0.5                        9.901e-12
+       169  8.209e+03        0.5                        9.901e-12
+       170  8.209e+03        0.5                        9.901e-12
+       171  8.209e+03        0.5                        9.901e-12
+       172  8.209e+03        0.5                        9.901e-12
+       173  8.209e+03        0.5                        9.901e-12
+       174  8.209e+03        0.5                        9.901e-12
+       175  8.209e+03        0.5                        9.901e-12
+       176  8.209e+03        0.5                        9.901e-12
+       177  8.209e+03        0.5                        9.901e-12
+       178  8.209e+03        0.5                        9.901e-12
+       179  8.209e+03        0.5                        9.901e-12
+       180  8.209e+03        0.5                        9.901e-12
+       181  8.209e+03        0.5                        9.901e-12
+       182  8.209e+03        0.5                        9.901e-12
+       183  8.209e+03        0.5                        9.901e-12
+       184  8.209e+03        0.5                        9.901e-12
+       185  8.209e+03        0.5                        9.901e-12
+       186  8.209e+03        0.5                        9.901e-12
+       187  8.209e+03        0.5                        9.901e-12
+       188  8.209e+03        0.5                        9.901e-12
+       189  8.209e+03        0.5                        9.901e-12
+       190  8.209e+03        0.5                        9.901e-12
+       191  8.212e+03        0.5  2.609e+03        0.5  9.901e-12
+       191  8.212e+03        0.5                        9.901e-12
+final_accuracy=0.5
+Ending session  2018-01-01T11:37:49.219081
+Elapsed time  465.522969

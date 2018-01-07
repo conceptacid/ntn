@@ -4,19 +4,21 @@ import random
 import math
 import subprocess
 
-hyper_d = [20, 200] # linear
-hyper_K = [2, 8] # linear
-hyper_num_batches = [0, 2]
-hyper_C = [1, 20] # linear scale
-hyper_lambd = [-3, 1]  # exponential scale, use lambd = 5*10^k
+hyper_d = [100, 100] # [20, 200] # linear: doesn't matter at all
+hyper_K = [4, 10] # linear
+hyper_num_batches = [1, 3] # log: seems to be better on higher numbers
+hyper_C = [1, 30] # linear scale
+hyper_lambd = [-4, 0] #  [-3, 1]  # exponential scale, use lambd = 5*10^k
 
-max_epochs = 1
-max_runs = 100
+
+
+max_epochs = 4
+max_runs = 200
 
 for i in range(max_runs):
     d = int(random.uniform(*hyper_d))
     K = int(random.uniform(*hyper_K))
-    num_batches = int(5 + math.pow(10, random.uniform(*hyper_num_batches)))
+    num_batches = int(math.pow(10, random.uniform(*hyper_num_batches)))
     C = int(random.uniform(*hyper_C))
     lambd = float(5*math.pow(10, random.uniform(*hyper_lambd)))
 

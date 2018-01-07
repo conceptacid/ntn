@@ -1,0 +1,209 @@
+Starting new session  2018-01-01T20:56:24.672361
+ d= 41
+ K= 5
+ num_batches= 63
+ C= 14
+ lambd= 1.1145644785840145
+ max_epochs= 2
+ max_iterations= 126
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+train data batch shape= (4, 25018)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  1.621e+05     0.5102                         1.37e+05
+         1   8.33e+04     0.5003                        5.829e+04
+         2  2.815e+04        0.5                        3.114e+03
+         3   2.56e+04        0.5                            581.3
+         4  2.536e+04     0.5002                            341.3
+         5  2.502e+04        0.5                            1.125
+         6  2.502e+04        0.5                        1.811e-08
+         7  2.502e+04        0.5                        1.646e-08
+         8  2.502e+04        0.5                        1.481e-08
+         9  2.502e+04        0.5                        1.322e-08
+        10  2.502e+04        0.5                         1.16e-08
+        11  2.502e+04        0.5                        1.082e-08
+        12  2.502e+04        0.5                        8.425e-09
+        13  2.502e+04        0.5                        6.848e-09
+        14  2.502e+04        0.5                        5.476e-09
+        15  2.502e+04        0.5                        4.266e-09
+        16  2.502e+04        0.5                        3.444e-09
+        17  2.502e+04        0.5                        2.192e-09
+        18  2.502e+04        0.5                        1.276e-09
+        19  2.502e+04        0.5                        7.366e-10
+        20  2.502e+04        0.5                        4.065e-10
+        21  2.502e+04        0.5                        3.966e-10
+        22  2.502e+04        0.5                        3.829e-10
+        23  2.502e+04        0.5                        3.816e-10
+        24  2.502e+04        0.5                        3.816e-10
+        25  2.502e+04        0.5                        3.816e-10
+        26  2.502e+04        0.5                        3.816e-10
+        27  2.502e+04        0.5                        3.816e-10
+        28  2.502e+04        0.5                        3.816e-10
+        29  2.502e+04        0.5                        3.802e-10
+        30  2.502e+04        0.5                        3.802e-10
+        31  2.502e+04        0.5                        3.802e-10
+        32  2.502e+04        0.5                        3.802e-10
+        33  2.502e+04        0.5                        3.802e-10
+        34  2.502e+04        0.5                        3.802e-10
+        35  2.502e+04        0.5                        3.802e-10
+        36  2.502e+04        0.5                         3.78e-10
+        37  2.502e+04        0.5                         3.78e-10
+        38  2.502e+04        0.5                         3.78e-10
+        39  2.502e+04        0.5                        3.531e-10
+        40  2.502e+04        0.5                        1.666e-10
+        41  2.502e+04        0.5                        1.666e-10
+        42  2.502e+04        0.5                        1.666e-10
+        43  2.502e+04        0.5                        1.643e-10
+        44  2.502e+04        0.5                        1.643e-10
+        45  2.502e+04        0.5                        1.643e-10
+        46  2.502e+04        0.5                        1.643e-10
+        47  2.502e+04        0.5                        1.643e-10
+        48  2.502e+04        0.5                        1.643e-10
+        49  2.502e+04        0.5                        1.643e-10
+        50  2.502e+04        0.5                        1.643e-10
+        51  2.502e+04        0.5                        1.643e-10
+        52  2.502e+04        0.5                        1.643e-10
+        53  2.502e+04        0.5                        1.643e-10
+        54  2.502e+04        0.5                        1.643e-10
+        55  2.502e+04        0.5                        1.643e-10
+        56  2.502e+04        0.5                        1.643e-10
+        57  2.502e+04        0.5                        1.643e-10
+        58  2.502e+04        0.5                        1.643e-10
+        59  2.502e+04        0.5                        1.643e-10
+        60  2.502e+04        0.5                        1.643e-10
+        61  2.502e+04        0.5                        1.643e-10
+        62  2.502e+04        0.5  2.609e+03        0.5  1.643e-10
+        62  2.502e+04        0.5                        1.643e-10
+        63  2.502e+04        0.5                        1.628e-10
+        64  2.502e+04        0.5                        1.628e-10
+        65  2.502e+04        0.5                        1.628e-10
+        66  2.502e+04        0.5                        1.628e-10
+        67  2.502e+04        0.5                        1.628e-10
+        68  2.502e+04        0.5                        1.628e-10
+        69  2.502e+04        0.5                        1.628e-10
+        70  2.502e+04        0.5                        1.628e-10
+        71  2.502e+04        0.5                        1.602e-10
+        72  2.502e+04        0.5                        1.602e-10
+        73  2.502e+04        0.5                        1.602e-10
+        74  2.502e+04        0.5                        1.602e-10
+        75  2.502e+04        0.5                        1.602e-10
+        76  2.502e+04        0.5                        1.602e-10
+        77  2.502e+04        0.5                        1.602e-10
+        78  2.502e+04        0.5                        1.602e-10
+        79  2.502e+04        0.5                        1.602e-10
+        80  2.502e+04        0.5                        1.602e-10
+        81  2.502e+04        0.5                        1.602e-10
+        82  2.502e+04        0.5                        1.602e-10
+        83  2.502e+04        0.5                        1.602e-10
+        84  2.502e+04        0.5                        1.602e-10
+        85  2.502e+04        0.5                        1.602e-10
+        86  2.502e+04        0.5                        1.602e-10
+        87  2.502e+04        0.5                        1.602e-10
+        88  2.502e+04        0.5                        1.602e-10
+        89  2.502e+04        0.5                        1.602e-10
+        90  2.502e+04        0.5                        1.602e-10
+        91  2.502e+04        0.5                        1.602e-10
+        92  2.502e+04        0.5                        1.602e-10
+        93  2.502e+04        0.5                        1.602e-10
+        94  2.502e+04        0.5                        1.602e-10
+        95  2.502e+04        0.5                        1.602e-10
+        96  2.502e+04        0.5                        1.602e-10
+        97  2.502e+04        0.5                        1.602e-10
+        98  2.502e+04        0.5                        1.602e-10
+        99  2.502e+04        0.5                        1.602e-10
+       100  2.502e+04        0.5                        1.602e-10
+       101  2.502e+04        0.5                        1.602e-10
+       102  2.502e+04        0.5                        1.602e-10
+       103  2.502e+04        0.5                        1.602e-10
+       104  2.502e+04        0.5                        1.602e-10
+       105  2.502e+04        0.5                        1.602e-10
+       106  2.502e+04        0.5                        1.602e-10
+       107  2.502e+04        0.5                        1.602e-10
+       108  2.502e+04        0.5                        1.602e-10
+       109  2.502e+04        0.5                        1.602e-10
+       110  2.502e+04        0.5                        1.602e-10
+       111  2.502e+04        0.5                        1.602e-10
+       112  2.502e+04        0.5                        1.602e-10
+       113  2.502e+04        0.5                        1.602e-10
+       114  2.502e+04        0.5                        1.602e-10
+       115  2.502e+04        0.5                        1.602e-10
+       116  2.502e+04        0.5                        1.602e-10
+       117  2.502e+04        0.5                        1.602e-10
+       118  2.502e+04        0.5                        1.602e-10
+       119  2.502e+04        0.5                        1.602e-10
+       120  2.502e+04        0.5                        1.602e-10
+       121  2.502e+04        0.5                        1.602e-10
+       122  2.502e+04        0.5                        1.602e-10
+       123  2.502e+04        0.5                        1.602e-10
+       124  2.502e+04        0.5                        1.602e-10
+       125  2.502e+04        0.5  2.609e+03        0.5  1.602e-10
+       125  2.502e+04        0.5                        1.602e-10
+final_accuracy=0.5
+Ending session  2018-01-01T21:01:45.776707
+Elapsed time  321.104346

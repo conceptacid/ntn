@@ -1,0 +1,80 @@
+Starting new session  2018-01-02T16:20:35.004346
+ d= 147
+ K= 7
+ num_batches= 20
+ C= 6
+ lambd= 0.8534506779863609
+ max_epochs= 2
+ max_iterations= 40
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33774)
+train data batch shape= (4, 33780)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  5.359e+05     0.5035                        5.021e+05
+         1  1.293e+05     0.5001                        9.533e+04
+         2  3.547e+04     0.5026                        1.686e+03
+         3  3.396e+04     0.5011                            259.8
+         4  3.352e+04     0.5161                            252.6
+         5  3.352e+04     0.5137                            257.7
+         6  3.336e+04     0.5066                            271.3
+         7  3.306e+04     0.5181                            274.8
+         8  3.273e+04     0.5258                            386.5
+         9  3.223e+04     0.5271                            386.3
+        10   3.22e+04     0.5255                            386.8
+        11  3.228e+04     0.5262                            387.6
+        12  3.213e+04     0.5243                            391.7
+        13  3.231e+04     0.5215                            392.9
+        14  3.239e+04      0.519                            394.7
+        15  3.233e+04     0.5212                            395.7
+        16  3.179e+04     0.5253                            396.5
+        17  3.235e+04      0.523                            397.4
+        18  3.262e+04      0.517                            398.7
+        19  3.281e+04     0.5176  2.737e+03     0.5393      399.3
+        19  3.281e+04     0.5176                            399.3
+        20  3.208e+04     0.5248                            399.7
+        21  3.201e+04     0.5242                            400.2
+        22  3.175e+04     0.5268                            401.2
+        23  3.171e+04     0.5271                            404.5
+        24  3.167e+04     0.5293                            405.1
+        25  3.187e+04     0.5212                            409.0
+        26  3.184e+04     0.5237                            409.2
+        27  3.141e+04     0.5285                            410.2
+        28   3.15e+04     0.5272                            410.5
+        29  3.161e+04     0.5281                            410.7
+        30  3.161e+04     0.5281                            410.8
+        31  3.185e+04     0.5281                            411.6
+        32  3.172e+04      0.525                            411.7
+        33  3.198e+04     0.5231                            412.9
+        34  3.207e+04     0.5217                            413.1
+        35  3.208e+04     0.5233                            413.2
+        36  3.146e+04     0.5261                            414.0
+        37  3.209e+04     0.5231                            414.6
+        38  3.238e+04     0.5176                            414.7
+        39  3.267e+04     0.5202  2.714e+03      0.542      415.6
+        39  3.267e+04     0.5202                            415.6
+final_accuracy=0.540629
+Ending session  2018-01-02T16:41:15.090911
+Elapsed time  1240.086565

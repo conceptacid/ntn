@@ -1,0 +1,83 @@
+Starting new session  2018-01-02T11:45:23.045592
+ d= 66
+ K= 4
+ num_batches= 21
+ C= 3
+ lambd= 18.57562694099342
+ max_epochs= 2
+ max_iterations= 42
+Number of words =  26784
+Number of entities =  38696
+Number of relations =  11
+num_words_per_entity =  9
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+train data batch shape= (4, 16083)
+
+
+  num_iter train_cost train_accu  dev_cost    dev_accu regulariza
+         0  2.926e+06     0.5019                         2.91e+06
+         1  1.609e+04        0.5                            9.373
+         2  1.608e+04        0.5                        5.762e-06
+         3  1.608e+04        0.5                        5.761e-06
+         4  1.608e+04        0.5                         5.76e-06
+         5  1.608e+04        0.5                        5.759e-06
+         6  1.608e+04        0.5                        5.758e-06
+         7  1.608e+04        0.5                        5.757e-06
+         8  1.608e+04        0.5                        5.756e-06
+         9  1.608e+04        0.5                        5.755e-06
+        10  1.608e+04        0.5                        5.755e-06
+        11  1.608e+04        0.5                        5.754e-06
+        12  1.608e+04        0.5                        5.753e-06
+        13  1.608e+04        0.5                        5.752e-06
+        14  1.608e+04        0.5                        5.751e-06
+        15  1.608e+04        0.5                         5.75e-06
+        16  1.608e+04        0.5                        5.749e-06
+        17  1.608e+04        0.5                        5.748e-06
+        18  1.608e+04        0.5                        5.747e-06
+        19  1.608e+04        0.5                        5.746e-06
+        20  1.608e+04        0.5  2.609e+03        0.5  5.746e-06
+        20  1.608e+04        0.5                        5.746e-06
+        21  1.608e+04        0.5                        5.745e-06
+        22  1.608e+04        0.5                        5.744e-06
+        23  1.608e+04        0.5                        5.743e-06
+        24  1.608e+04        0.5                        5.742e-06
+        25  1.608e+04        0.5                        5.741e-06
+        26  1.608e+04        0.5                         5.74e-06
+        27  1.608e+04        0.5                        5.739e-06
+        28  1.608e+04        0.5                        5.738e-06
+        29  1.608e+04        0.5                        5.738e-06
+        30  1.608e+04        0.5                        5.737e-06
+        31  1.608e+04        0.5                        5.736e-06
+        32  1.608e+04        0.5                        5.735e-06
+        33  1.608e+04        0.5                        5.734e-06
+        34  1.608e+04        0.5                        5.733e-06
+        35  1.608e+04        0.5                        5.732e-06
+        36  1.608e+04        0.5                        5.731e-06
+        37  1.608e+04        0.5                         5.73e-06
+        38  1.608e+04        0.5                        5.729e-06
+        39  1.608e+04        0.5                        5.729e-06
+        40  1.608e+04        0.5                        5.728e-06
+        41  1.608e+04        0.5  2.609e+03        0.5  5.727e-06
+        41  1.608e+04        0.5                        5.727e-06
+final_accuracy=0.5
+Ending session  2018-01-02T11:59:03.614703
+Elapsed time  820.569111
